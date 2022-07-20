@@ -25,7 +25,7 @@ const items = [
   {
     href: '/mobilekeystatus',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Mobile Key Status'
+    title: 'Mobile Key Status List'
   },
   {
     href: '/products',
@@ -215,7 +215,7 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: 'neutral.900',
+            backgroundColor: 'secondary.main',
             color: '#FFFFFF',
             width: 280
           }
@@ -234,7 +234,7 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: 'neutral.900',
+          backgroundColor: 'secondary.main',
           color: '#FFFFFF',
           width: 280
         }

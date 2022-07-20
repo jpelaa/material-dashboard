@@ -1,5 +1,9 @@
 import { createTheme } from '@mui/material';
 
+const PRIMARY_COLOR = "#7C6F55";
+const SECONDARY_COLOR = '#000000';
+const WHITE_COLOR = "#FFFFFF"
+
 export const theme = createTheme({
   breakpoints: {
     values: {
@@ -110,9 +114,9 @@ export const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F3F4F6',
+          backgroundColor: PRIMARY_COLOR,
           '.MuiTableCell-root': {
-            color: '#374151'
+            color: WHITE_COLOR,
           },
           borderBottom: 'none',
           '& .MuiTableCell-root': {
@@ -128,6 +132,16 @@ export const theme = createTheme({
             paddingBottom: 4
           }
         }
+      }
+    },
+    MuiTableBody: {
+      styleOverrides: {
+        root: {
+          backgroundColor: WHITE_COLOR,
+          '.MuiTableCell-root': {
+            color: SECONDARY_COLOR,
+          },
+        },
       }
     }
   },
@@ -153,47 +167,47 @@ export const theme = createTheme({
     },
     background: {
       default: '#101010',
-      paper: '#000000'
+      paper: SECONDARY_COLOR
     },
     divider: '#E6E8F0',
     primary: {
-      main: '#7C6F55',
+      main: PRIMARY_COLOR,
       light: '#cac5bb',
       dark: '#4f4636',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     secondary: {
-      main: '#000000',
+      main: SECONDARY_COLOR,
       light: '#c5c5c5',
       dark: '#474747',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     success: {
       main: '#14B8A6',
       light: '#43C6B7',
       dark: '#0E8074',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     info: {
       main: '#2196F3',
       light: '#64B6F7',
       dark: '#0B79D0',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     warning: {
       main: '#FFB020',
       light: '#FFBF4C',
       dark: '#B27B16',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     error: {
       main: '#D14343',
       light: '#DA6868',
       dark: '#922E2E',
-      contrastText: '#FFFFFF'
+      contrastText: WHITE_COLOR
     },
     text: {
-      primary: '#FFFFFF',
+      primary: WHITE_COLOR,
       secondary: '#cabcbc',
       disabled: '#8f8f8f'
     }

@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   Checkbox,
+  Grid,
   Table,
   TableBody,
   TableCell,
@@ -68,10 +69,11 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {/* <TableCell padding="checkbox">
+          <Grid item xs={12}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.length === customers.length}
                     color="primary"
@@ -82,69 +84,70 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
                     onChange={handleSelectAll}
                   />
                 </TableCell> */}
-                {Object.values(MOBILE_KEY_STATUS_TABLE_HEADER).map((headerValue) => {
-                 return <TableCell key={headerValue}>
-                  {headerValue}
-                </TableCell>
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {mobileKeyStatusList.slice(0, limit).map((data) => (
-                <TableRow
-                  hover
-                  key={data.id}
-                  selected={selectedCustomerIds.indexOf(data.id) !== -1}
-                >
-                  {/* <TableCell padding="checkbox">
+                  {Object.values(MOBILE_KEY_STATUS_TABLE_HEADER).map((headerValue) => {
+                    return <TableCell key={headerValue}>
+                      {headerValue}
+                    </TableCell>
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {mobileKeyStatusList.slice(0, limit).map((data) => (
+                  <TableRow
+                    hover
+                    key={data.id}
+                    selected={selectedCustomerIds.indexOf(data.id) !== -1}
+                  >
+                    {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedCustomerIds.indexOf(customer.id) !== -1}
                       onChange={(event) => handleSelectOne(event, customer.id)}
                       value="true"
                     />
                   </TableCell> */}
-                  <TableCell>
-                   {data.overAllStatus}
-                  </TableCell>
-                  <TableCell>
-                    {data.externalBookingRefId}
-                  </TableCell>
-                  <TableCell>
-                    {data.reservationId}
-                  </TableCell>
-                  <TableCell>
-                    {data.checkInChannel}
-                  </TableCell>
-                  <TableCell>
-                    {data.roomNumber}
-                  </TableCell>
-                  <TableCell>
-                    {`${data.salutation}.${data.firstName} ${data.lastName}`}
-                  </TableCell>
-                  <TableCell>
-                    {format(data.checkInDate, 'dd/MM/yyyy')}
-                  </TableCell>
-                  <TableCell>
-                    {format(data.checkOutDate, 'dd/MM/yyyy')}
-                  </TableCell>
-                  <TableCell>
-                    {data.noOfNights}
-                  </TableCell>
-                  <TableCell>
-                    {data.mobileKeyStatus}
-                  </TableCell>
-                  <TableCell>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                  >
-                    View
-                  </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                    <TableCell>
+                      {data.overAllStatus}
+                    </TableCell>
+                    <TableCell>
+                      {data.externalBookingRefId}
+                    </TableCell>
+                    <TableCell>
+                      {data.reservationId}
+                    </TableCell>
+                    <TableCell>
+                      {data.checkInChannel}
+                    </TableCell>
+                    <TableCell>
+                      {data.roomNumber}
+                    </TableCell>
+                    <TableCell>
+                      {`${data.salutation}.${data.firstName} ${data.lastName}`}
+                    </TableCell>
+                    <TableCell>
+                      {format(data.checkInDate, 'dd/MM/yyyy')}
+                    </TableCell>
+                    <TableCell>
+                      {format(data.checkOutDate, 'dd/MM/yyyy')}
+                    </TableCell>
+                    <TableCell>
+                      {data.noOfNights}
+                    </TableCell>
+                    <TableCell>
+                      {data.mobileKeyStatus}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Grid>
         </Box>
       </PerfectScrollbar>
       <TablePagination
@@ -161,5 +164,5 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
 };
 
 MobileKeyStatusListResults.propTypes = {
-  mobileKeyStatusList : PropTypes.array.isRequired
+  mobileKeyStatusList: PropTypes.array.isRequired
 };
