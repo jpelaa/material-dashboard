@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Drawer, IconButton, Typography, useMediaQuery } from '@mui/material';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { styled, useTheme } from '@mui/styles';
+
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
@@ -16,6 +20,15 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
 const items = [
   {
     href: '/',
@@ -27,11 +40,11 @@ const items = [
     icon: (<UsersIcon fontSize="small" />),
     title: 'Mobile Key Status List'
   },
-  {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
-  },
+  // {
+  //   href: '/products',
+  //   icon: (<ShoppingBagIcon fontSize="small" />),
+  //   title: 'Products'
+  // },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
@@ -42,26 +55,27 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
+  // {
+  //   href: '/login',
+  //   icon: (<LockIcon fontSize="small" />),
+  //   title: 'Login'
+  // },
+  // {
+  //   href: '/register',
+  //   icon: (<UserAddIcon fontSize="small" />),
+  //   title: 'Register'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: (<XCircleIcon fontSize="small" />),
+  //   title: 'Error'
+  // }
 ];
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
+  const theme = useTheme();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
@@ -80,9 +94,10 @@ export const DashboardSidebar = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.asPath]
   );
-
+  console.log(theme, " theme ")
   const content = (
     <>
+      {/*  */}
       <Box
         sx={{
           display: 'flex',
@@ -91,8 +106,8 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
-            {/* <NextLink
+          {/*  <Box sx={{ p: 3 }}>
+             <NextLink
               href="/"
               passHref
             >
@@ -104,8 +119,8 @@ export const DashboardSidebar = (props) => {
                   }}
                 />
               </a>
-            </NextLink> */}
-          </Box>
+            </NextLink> 
+          </Box>*/}
           <Box sx={{ px: 2 }}>
             <Box
               sx={{
@@ -208,24 +223,25 @@ export const DashboardSidebar = (props) => {
     </>
   );
 
-  if (lgUp) {
-    return (
-      <Drawer
-        anchor="left"
-        open
-        PaperProps={{
-          sx: {
-            backgroundColor: 'secondary.main',
-            color: '#FFFFFF',
-            width: 280
-          }
-        }}
-        variant="permanent"
-      >
-        {content}
-      </Drawer>
-    );
-  }
+  // if (lgUp) {
+  //   console.log(lgUp, open, " lgUp ")
+  //   return (
+  //     <Drawer
+  //       anchor="left"
+  //       open={open}
+  //       PaperProps={{
+  //         sx: {
+  //           backgroundColor: 'secondary.main',
+  //           color: '#FFFFFF',
+  //           width: 280
+  //         }
+  //       }}
+  //       variant="permanent"
+  //     >
+  //       {content}
+  //     </Drawer>
+  //   );
+  // }
 
   return (
     <Drawer
@@ -240,8 +256,13 @@ export const DashboardSidebar = (props) => {
         }
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
-      variant="temporary"
+      variant="permanent"
     >
+      <DrawerHeader>
+        <IconButton onClick={onClose}>
+          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </IconButton>
+      </DrawerHeader>
       {content}
     </Drawer>
   );
