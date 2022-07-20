@@ -21,11 +21,15 @@ import {
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
+import MobileIssuanceSummary from './mobile-issuance-summary';
 
 export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [details, setDetails] = useState(null);
+
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -67,6 +71,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
     setPage(newPage);
   };
 
+  console.log(showPopup, "  showPopup")
   return (
     <Box sx={{ width: '100%' }}>
       <TableContainer component={Paper}>
@@ -142,7 +147,11 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
                 <TableCell>
                   <Button
                     color="primary"
-                    variant="contained"
+                    variant="outlined"
+                    onClick={() => {
+                      setDetails(data)
+                      setShowPopup(true)
+                    }}
                   >
                     View
                   </Button>
@@ -161,6 +170,14 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
       />
+      {showPopup && details && <MobileIssuanceSummary
+        open={showPopup}
+        roomNo={details.roomNo}
+        details={details}
+        handleClose={() => {
+          setShowPopup(false);
+          setDetails(null)
+        }} />}
     </Box>
   );
 };

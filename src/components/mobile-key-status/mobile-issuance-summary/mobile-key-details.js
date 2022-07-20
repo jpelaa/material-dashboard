@@ -1,28 +1,32 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
+import { format } from "date-fns";
 
-const MobileKeyDetails = () => {
+const MobileKeyDetails = ({ details }) => {
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <Grid>External Booking Ref</Grid>
-                <Grid>Booking ID</Grid>
-                <Grid>Check-In Date</Grid>
-                <Grid>Check-Out Date</Grid>
-                <Grid># of Nights</Grid>
-                <Grid>Guest Name</Grid>
-                <Grid>Room Number</Grid>
+        <Box sx={{
+            width: "100%"
+        }}
+        >
+            <Grid container spacing={2}>
+                <Grid item xs>External Booking Ref</Grid>
+                <Grid item xs>Booking ID</Grid>
+                <Grid item xs>Check-In Date</Grid>
+                <Grid item xs>Check-Out Date</Grid>
+                <Grid item xs># of Nights</Grid>
+                <Grid item xs>Guest Name</Grid>
+                <Grid item xs>Room Number</Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
+            <Grid container spacing={2}>
+                <Grid item xs>{details.externalBookingRefId}</Grid>
+                <Grid item xs>{details.reservationId}</Grid>
+                <Grid item xs>{format(details.checkInDate, "dd/MM/yyyy")}</Grid>
+                <Grid item xs>{format(details.checkOutDate, "dd/MM/yyyy")}</Grid>
+                <Grid item xs>{details.noOfNights}</Grid>
+                <Grid item xs>{`${details.salutation}.${details.firstName} ${details.lastName}`}</Grid>
+                <Grid item xs>{details.roomNo}</Grid>
 
             </Grid>
-        </Grid>
+        </Box>
     );
 }
 

@@ -1,8 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { mobileKeyIssuanceSummary } from "src/__mocks__/mobile_key_issuance_summary";
 import MobileKeyDetails from "./mobile-key-details";
 import SummaryTable from "./summary-table";
 
-const MobileIssuanceSummary = ({ }) => {
+const MobileIssuanceSummary = ({ roomNo, details, open, handleClose, scroll = "paper" }) => {
     return (
         <Dialog
             open={open}
@@ -10,16 +11,13 @@ const MobileIssuanceSummary = ({ }) => {
             scroll={scroll}
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
+            maxWidth="md"
         >
-            <DialogTitle id="scroll-dialog-title">Mobile Key Issuance Summary( Room Number : { }) </DialogTitle>
+            <DialogTitle id="scroll-dialog-title">Mobile Key Issuance Summary( Room Number : {roomNo}) </DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
-                <MobileKeyDetails />
-                <SummaryTable rows={[]} />
+                <MobileKeyDetails details={details} />
+                <SummaryTable rows={mobileKeyIssuanceSummary} />
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleClose}>Subscribe</Button>
-            </DialogActions>
         </Dialog>
     );
 }
