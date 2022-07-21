@@ -36,11 +36,8 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(
-  order,
-  orderBy,
-) {
-  return order === 'desc'
+function getComparator(order, orderBy) {
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -49,24 +46,23 @@ function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
+    if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map((el) => el[0]);
+  return stabilizedThis.map(el => el[0]);
 }
 
 function EnhancedTableHead(props) {
   const { order, orderBy, onRequestSort } =
     props;
-  const createSortHandler =
-    (property) => (event) => {
-      onRequestSort(event, property);
-    };
+  const createSortHandler = property => event => {
+    onRequestSort(event, property);
+  };
 
   return (
-    <TableHead>
+    <TableHead sx={{
+      backgroundColor: 'primary.light',
+    }}>
       <TableRow>
         {MOBILE_KEY_STATUS_TABLE_HEADER.map((headCell) => (
           <TableCell
@@ -75,7 +71,7 @@ function EnhancedTableHead(props) {
           >
             <TableSortLabel
               sx={{
-                color: "text.primary"
+                color: 'primary.dark'
               }}
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
@@ -107,12 +103,9 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
   const [orderBy, setOrderBy] = useState('calories');
 
 
-  const handleRequestSort = (
-    event,
-    property,
-  ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 

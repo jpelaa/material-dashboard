@@ -115,9 +115,6 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: PRIMARY_COLOR,
-          '.MuiTableCell-root': {
-            color: WHITE_COLOR,
-          },
           borderBottom: 'none',
           '& .MuiTableCell-root': {
             borderBottom: 'none',
@@ -125,7 +122,6 @@ export const theme = createTheme({
             fontWeight: 600,
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: 'uppercase'
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,
