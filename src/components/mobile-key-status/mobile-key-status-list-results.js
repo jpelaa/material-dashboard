@@ -30,6 +30,27 @@ import { formatYYYYMMDD } from 'src/utils/date';
 import { getColorBasedOnStatus } from 'src/utils';
 import { Close, Search } from '@mui/icons-material';
 
+const filterAll = ({ arr, filters, commonFilterValue }) => {
+  return arr.filter((data, index) => {
+    const filterKeyArr = Object.keys(filters);
+    if (filterKeyArr.length > 0) {
+      const bool = []
+      filterKeyArr.forEach((filterKey) => {
+        if (filters[filterKey]) {
+          const filterInLowerCase = filters[filterKey].toLowerCase();
+          const dataInLowerCase = data[filterKey].toLowerCase();
+          bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+        }
+      })
+      console.log(bool, index, " bool ")
+      return bool.every(Boolean)
+    } else {
+      return true;
+    }
+
+  });
+}
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -99,7 +120,7 @@ function EnhancedTableHead(props) {
 }
 
 
-export const MobileKeyStatusListResults = ({ mobileKeyStatusList, enableFilter, ...rest }) => {
+export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterValue, filters, enableFilter, ...rest }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -107,7 +128,9 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, enableFilter, 
   const [details, setDetails] = useState(null);
 
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('');
+
+  const filteredMobileKeyStatusList = filterAll({ commonFilterValue, filters, arr: mobileKeyStatusList })
 
 
   const handleRequestSort = (event, property) => {
@@ -140,7 +163,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, enableFilter, 
             onRequestSort={handleRequestSort}
           />
           <TableBody>
-            {stableSort(mobileKeyStatusList, getComparator(order, orderBy))
+            {stableSort(filteredMobileKeyStatusList, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
                 <TableRow
                   hover

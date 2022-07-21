@@ -13,7 +13,7 @@ import { Download as DownloadIcon } from '../../icons/download';
 import { Close, FilterList, Search } from '@mui/icons-material';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 
-const FilterGrid = () => {
+const FilterGrid = ({ filters, handleIndividualFilterChange }) => {
   return <Grid container sx={{ mt: 1 }} spacing={2} alignItems="center">
     {MOBILE_KEY_STATUS_TABLE_HEADER.filter(data => data.filterEnabled).map((data) => {
       return <Grid key={data.id} item xs={3}>
@@ -21,12 +21,13 @@ const FilterGrid = () => {
           placeholder={`search ${data.label}`}
           id="filled-start-adornment"
           size="small"
+          value={filters[data.id] || ''}
+          onChange={(event) => handleIndividualFilterChange({ id: data.id, value: event.target.value })}
           InputProps={{
             startAdornment: <InputAdornment position="start">
               <IconButton
                 size='small'
                 aria-label={`search ${data.id}`}
-                onClick={() => { }}
               >
                 <FilterList sx={{ fontSize: "1.15rem" }} />
               </IconButton>
@@ -35,7 +36,7 @@ const FilterGrid = () => {
               <IconButton
                 size='small'
                 aria-label={`search ${data.id}`}
-                onClick={() => { }}
+                onClick={() => handleIndividualFilterChange({ id: data.id, value: undefined })}
               >
                 <Close sx={{ fontSize: "1rem" }} />
               </IconButton>
@@ -49,11 +50,15 @@ const FilterGrid = () => {
 }
 
 export const CustomerListToolbar = (props) => {
-  const { enableFilter, handleFilterChange } = props;
+  const { enableFilter, handleFilterChange, filterCommonValue, handleCommonFilterValueChange, filters, handleIndividualFilterChange } = props;
+
+  const handleSearchChange = (event) => {
+    handleCommonFilterValueChange(event)
+  }
 
   return <>
     <Grid container spacing={2} alignItems="center">
-      <Grid item xs={6}>
+      <Grid item xs={10}>
         <Typography
           sx={{ m: 1 }}
           variant="h5"
@@ -61,10 +66,12 @@ export const CustomerListToolbar = (props) => {
           Mobile Key Status List
         </Typography>
       </Grid>
-      <Grid item xs={4}>
+      {/* <Grid item xs={4}>
         <TextField
           fullWidth
           size='small'
+          value={filterCommonValue}
+          onChange={handleSearchChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -80,13 +87,13 @@ export const CustomerListToolbar = (props) => {
           placeholder="Search"
           variant="outlined"
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={2}>
         <FormGroup>
           <FormControlLabel control={<Switch size='small' inputProps={{ 'aria-label': 'controlled' }} value={enableFilter} onChange={handleFilterChange} />} label="Enable Filter" />
         </FormGroup>
       </Grid>
     </Grid>
-    {enableFilter ? <FilterGrid /> : null}
+    {enableFilter ? <FilterGrid filters={filters} handleIndividualFilterChange={handleIndividualFilterChange} /> : null}
   </>
 };
