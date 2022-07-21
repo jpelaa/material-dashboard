@@ -22,6 +22,17 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 import MobileIssuanceSummary from './mobile-issuance-summary';
+import { formatDDMMMYYYY } from 'src/utils/date';
+
+const getColorBasedOnStatus = (overAllStatus) => {
+  if (overAllStatus.toLowerCase() === "incomplete") {
+    return "warning.main"
+  } else if (overAllStatus.toLowerCase() === "complete") {
+    return "success.main"
+  } else {
+    return "secondary.main"
+  }
+}
 
 export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -114,8 +125,15 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
                       value="true"
                     />
                   </TableCell> */}
-                <TableCell>
-                  {data.overAllStatus}
+                <TableCell >
+                  <Typography
+                    variant='p'
+                    sx={{
+                      color: getColorBasedOnStatus(data.overAllStatus)
+                    }}
+                  >
+                    {data.overAllStatus}
+                  </Typography>
                 </TableCell>
                 <TableCell>
                   {data.externalBookingRefId}
@@ -127,16 +145,16 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
                   {data.checkInChannel}
                 </TableCell>
                 <TableCell>
-                  {data.roomNumber}
+                  {data.roomNo}
                 </TableCell>
                 <TableCell>
                   {`${data.salutation}.${data.firstName} ${data.lastName}`}
                 </TableCell>
                 <TableCell>
-                  {format(data.checkInDate, 'dd/MM/yyyy')}
+                  {formatDDMMMYYYY(data.checkInDate)}
                 </TableCell>
                 <TableCell>
-                  {format(data.checkOutDate, 'dd/MM/yyyy')}
+                  {formatDDMMMYYYY(data.checkOutDate)}
                 </TableCell>
                 <TableCell>
                   {data.noOfNights}

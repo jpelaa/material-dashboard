@@ -143,6 +143,14 @@ export const theme = createTheme({
           },
         },
       }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          backgroundColor: SECONDARY_COLOR,
+          color: WHITE_COLOR,
+        },
+      }
     }
   },
   palette: {
@@ -166,21 +174,15 @@ export const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#101010',
-      paper: SECONDARY_COLOR
+      default: '#EEEEEE',
+      paper: WHITE_COLOR
     },
     divider: '#E6E8F0',
     primary: {
       main: PRIMARY_COLOR,
-      light: '#cac5bb',
-      dark: '#4f4636',
-      contrastText: WHITE_COLOR
     },
     secondary: {
       main: SECONDARY_COLOR,
-      light: '#c5c5c5',
-      dark: '#474747',
-      contrastText: WHITE_COLOR
     },
     success: {
       main: '#14B8A6',
@@ -207,9 +209,9 @@ export const theme = createTheme({
       contrastText: WHITE_COLOR
     },
     text: {
-      primary: WHITE_COLOR,
-      secondary: '#cabcbc',
-      disabled: '#8f8f8f'
+      primary: '#2c2c2c',
+      secondary: '#65748B',
+      disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },
   shape: {
@@ -246,7 +248,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+    fontFamily: 'TFArrow,Times New Roman,Times,Baskerville,Georgia,serif',
     body1: {
       fontSize: '1rem',
       fontWeight: 400,

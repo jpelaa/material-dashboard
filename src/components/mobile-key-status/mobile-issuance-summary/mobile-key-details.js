@@ -1,5 +1,11 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { format } from "date-fns";
+
+const Header = ({ children }) => {
+    return <Typography variant="h6" component="h6">
+        {children}
+    </Typography>;
+}
 
 const MobileKeyDetails = ({ details }) => {
     return (
@@ -8,13 +14,13 @@ const MobileKeyDetails = ({ details }) => {
         }}
         >
             <Grid container spacing={2}>
-                <Grid item xs>External Booking Ref</Grid>
-                <Grid item xs>Booking ID</Grid>
-                <Grid item xs>Check-In Date</Grid>
-                <Grid item xs>Check-Out Date</Grid>
-                <Grid item xs># of Nights</Grid>
-                <Grid item xs>Guest Name</Grid>
-                <Grid item xs>Room Number</Grid>
+                <Grid item xs><Header>External Booking Ref</Header></Grid>
+                <Grid item xs><Header>Booking ID</Header></Grid>
+                <Grid item xs><Header>Check-In Date</Header></Grid>
+                <Grid item xs><Header>Check-Out Date</Header></Grid>
+                <Grid item xs><Header># of Nights</Header></Grid>
+                <Grid item xs><Header>Guest Name</Header></Grid>
+                <Grid item xs><Header>Room Number</Header></Grid>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item xs>{details.externalBookingRefId}</Grid>
