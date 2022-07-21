@@ -30,13 +30,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const items = [
+  // {
+  //   href: '/',
+  //   icon: (<ChartBarIcon fontSize="small" />),
+  //   title: 'Dashboard'
+  // },
   {
     href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
-  {
-    href: '/mobilekeystatus',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Mobile Key Status List'
   },
