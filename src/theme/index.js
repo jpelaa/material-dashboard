@@ -248,7 +248,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: 'TFArrow,Times New Roman,Times,Baskerville,Georgia,serif',
+    fontFamily: 'Gilroy-Light',
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
