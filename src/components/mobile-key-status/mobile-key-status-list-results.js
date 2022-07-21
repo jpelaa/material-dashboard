@@ -9,6 +9,8 @@ import {
   Card,
   Checkbox,
   Grid,
+  IconButton,
+  InputAdornment,
   Paper,
   Table,
   TableBody,
@@ -18,6 +20,7 @@ import {
   TablePagination,
   TableRow,
   TableSortLabel,
+  TextField,
   Typography
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
@@ -25,6 +28,7 @@ import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 import MobileIssuanceSummary from './mobile-issuance-summary';
 import { formatYYYYMMDD } from 'src/utils/date';
 import { getColorBasedOnStatus } from 'src/utils';
+import { Close, Search } from '@mui/icons-material';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -51,6 +55,9 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map(el => el[0]);
 }
+
+
+
 
 function EnhancedTableHead(props) {
   const { order, orderBy, onRequestSort } =
@@ -92,7 +99,7 @@ function EnhancedTableHead(props) {
 }
 
 
-export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => {
+export const MobileKeyStatusListResults = ({ mobileKeyStatusList, enableFilter, ...rest }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -180,6 +187,10 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
                     <Button
                       color="primary"
                       variant="outlined"
+                      sx={{
+                        lineHeight: 0.5,
+
+                      }}
                       onClick={() => {
                         setDetails(data)
                         setShowPopup(true)

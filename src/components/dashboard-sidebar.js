@@ -38,7 +38,7 @@ const items = [
   {
     href: '/',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Mobile Key Status List'
+    title: 'Mobile Key Status'
   },
   // {
   //   href: '/products',
@@ -252,7 +252,7 @@ export const DashboardSidebar = (props) => {
         sx: {
           backgroundColor: 'secondary.main',
           color: '#FFFFFF',
-          width: 280
+          width: 200
         }
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}

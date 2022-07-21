@@ -15,7 +15,7 @@ export const NavItem = (props) => {
         display: 'flex',
         mb: 0.5,
         py: 0,
-        px: 2
+        px: 1
       }}
       {...others}
     >

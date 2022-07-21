@@ -1,47 +1,58 @@
 export const MOBILE_KEY_STATUS_TABLE_HEADER = [
     {
         "id": "overAllStatus",
-        "label": "Overall Status"
+        "label": "Overall Status",
+        filterEnabled: true,
     },
     {
         "id": "externalBookingRef",
-        "label": "External Booking Ref"
+        "label": "External Booking Ref",
+        filterEnabled: true,
     },
     {
         "id": "reservationId",
-        "label": "Reservation Id"
+        "label": "Reservation Id",
+        filterEnabled: true,
     },
     {
         "id": "checkInChannel",
-        "label": "Check-in Channel"
+        "label": "Check-in Channel",
+        filterEnabled: true,
     },
     {
         "id": "roomNumber",
-        "label": "Room Number"
+        "label": "Room Number",
+        filterEnabled: true,
     },
     {
         "id": "guestName",
-        "label": "Guest Name"
+        "label": "Guest Name",
+        filterEnabled: true,
     },
     {
         "id": "checkInDate",
-        "label": "Check-in Date"
+        "label": "Check-in Date",
+        filterEnabled: true,
     },
     {
         "id": "checkOutDate",
-        "label": "Check-out Date"
+        "label": "Check-out Date",
+        filterEnabled: true,
     },
     {
         "id": "noOfNights",
-        "label": "Night(s)"
+        "label": "Night(s)",
+        filterEnabled: true,
     },
     {
         "id": "mobileKeys",
-        "label": "Mobile Keys (Issued/Requested)"
+        "label": "Mobile Keys (Issued/Requested)",
+        filterEnabled: false,
     },
     {
         "id": "action",
-        "label": "Action"
+        "label": "Action",
+        filterEnabled: false,
     }
 ]
 
