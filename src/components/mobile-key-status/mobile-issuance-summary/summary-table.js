@@ -20,18 +20,34 @@ const SummaryTable = ({ rows = [] }) => {
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell>
+                                <TableCell sx={{
+                                    width: "5%"
+                                }}>
                                     {index + 1}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell sx={{
+                                    width: "16%"
+                                }}>
                                     {row.email}
                                 </TableCell>
-                                <TableCell >{row.guestType}</TableCell>
-                                <TableCell >{formatYYYYMMDDHHMM(row.requestedOn)}</TableCell>
-                                <TableCell >{row.requestStatus}</TableCell>
-                                <TableCell >{formatYYYYMMDDHHMM(row.responseDateTime)}</TableCell>
-                                <TableCell >{row.responseBy}</TableCell>
-                                <TableCell >{row.comment}</TableCell>
+                                <TableCell sx={{
+                                    width: "10%"
+                                }}>{row.guestType}</TableCell>
+                                <TableCell sx={{
+                                    width: "14%"
+                                }}>{formatYYYYMMDDHHMM(row.requestedOn)}</TableCell>
+                                <TableCell sx={{
+                                    width: "10%"
+                                }}>{row.requestStatus}</TableCell>
+                                <TableCell sx={{
+                                    width: "14%"
+                                }}>{formatYYYYMMDDHHMM(row.responseDateTime)}</TableCell>
+                                <TableCell sx={{
+                                    width: "10%"
+                                }}>{row.responseBy}</TableCell>
+                                <TableCell sx={{
+                                    width: "21%"
+                                }}>{row.comment}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

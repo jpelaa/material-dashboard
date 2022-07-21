@@ -14,7 +14,7 @@ import { Close, FilterList, Search } from '@mui/icons-material';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 
 const FilterGrid = () => {
-  return <Grid container spacing={2} alignItems="center">
+  return <Grid container sx={{ mt: 1 }} spacing={2} alignItems="center">
     {MOBILE_KEY_STATUS_TABLE_HEADER.filter(data => data.filterEnabled).map((data) => {
       return <Grid key={data.id} item xs={3}>
         <TextField

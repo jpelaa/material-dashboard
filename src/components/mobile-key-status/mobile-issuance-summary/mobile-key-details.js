@@ -2,7 +2,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { format } from "date-fns";
 
 const Header = ({ children }) => {
-    return <Typography variant="h6" component="h6">
+    return <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} component="div" >
+        {children}
+    </Typography>;
+}
+
+const Content = ({ children }) => {
+    return <Typography variant="body2" component="div">
         {children}
     </Typography>;
 }
@@ -10,7 +16,9 @@ const Header = ({ children }) => {
 const MobileKeyDetails = ({ details }) => {
     return (
         <Box sx={{
-            width: "100%"
+            width: "100%",
+            mb: 0.5,
+            px: 3
         }}
         >
             <Grid container spacing={2}>
@@ -23,14 +31,13 @@ const MobileKeyDetails = ({ details }) => {
                 <Grid item xs><Header>Room Number</Header></Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item xs>{details.externalBookingRefId}</Grid>
-                <Grid item xs>{details.reservationId}</Grid>
-                <Grid item xs>{format(details.checkInDate, "dd/MM/yyyy")}</Grid>
-                <Grid item xs>{format(details.checkOutDate, "dd/MM/yyyy")}</Grid>
-                <Grid item xs>{details.noOfNights}</Grid>
-                <Grid item xs>{`${details.salutation}.${details.firstName} ${details.lastName}`}</Grid>
-                <Grid item xs>{details.roomNo}</Grid>
-
+                <Grid item xs><Content>{details.externalBookingRefId}</Content></Grid>
+                <Grid item xs><Content>{details.reservationId}</Content></Grid>
+                <Grid item xs><Content>{format(details.checkInDate, "dd/MM/yyyy")}</Content></Grid>
+                <Grid item xs><Content>{format(details.checkOutDate, "dd/MM/yyyy")}</Content></Grid>
+                <Grid item xs><Content>{details.noOfNights}</Content></Grid>
+                <Grid item xs><Content>{`${details.salutation}.${details.firstName} ${details.lastName}`}</Content></Grid>
+                <Grid item xs><Content>{details.roomNo}</Content></Grid>
             </Grid>
         </Box>
     );

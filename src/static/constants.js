@@ -6,7 +6,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
     },
     {
         "id": "externalBookingRef",
-        "label": "External Booking Ref",
+        "label": "External Booking Ref.",
         filterEnabled: true,
     },
     {

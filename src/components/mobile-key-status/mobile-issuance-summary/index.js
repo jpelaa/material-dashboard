@@ -17,7 +17,7 @@ const MobileIssuanceSummary = ({ roomNo, details, open, handleClose, scroll = "p
             <AppBar sx={{ position: 'relative', backgroundColor: "secondary.main" }}>
                 <Toolbar>
                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                        Mobile Key Issuance Summary( Room Number : {roomNo})
+                        Mobile Key Issuance Summary (Room Number : {roomNo})
                     </Typography>
                     <IconButton
                         edge="start"
