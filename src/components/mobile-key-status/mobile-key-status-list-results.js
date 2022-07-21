@@ -17,72 +17,115 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TableSortLabel,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
+import { visuallyHidden } from '@mui/utils';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 import MobileIssuanceSummary from './mobile-issuance-summary';
-import { formatDDMMMYYYY } from 'src/utils/date';
+import { formatYYYYMMDD } from 'src/utils/date';
+import { getColorBasedOnStatus } from 'src/utils';
 
-const getColorBasedOnStatus = (overAllStatus) => {
-  if (overAllStatus.toLowerCase() === "incomplete") {
-    return "warning.main"
-  } else if (overAllStatus.toLowerCase() === "complete") {
-    return "success.main"
-  } else {
-    return "secondary.main"
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
   }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
 
+function getComparator(
+  order,
+  orderBy,
+) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function EnhancedTableHead(props) {
+  const { order, orderBy, onRequestSort } =
+    props;
+  const createSortHandler =
+    (property) => (event) => {
+      onRequestSort(event, property);
+    };
+
+  return (
+    <TableHead>
+      <TableRow>
+        {MOBILE_KEY_STATUS_TABLE_HEADER.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              sx={{
+                color: "text.primary"
+              }}
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+}
+
+
 export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [showPopup, setShowPopup] = useState(false);
   const [details, setDetails] = useState(null);
 
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('calories');
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
 
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
+  const handleRequestSort = (
+    event,
+    property,
+  ) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
   };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
 
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  console.log(showPopup, "  showPopup")
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <TableContainer component={Paper}>
@@ -91,102 +134,80 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, ...rest }) => 
           aria-labelledby="tableTitle"
           size={'small'}
         >
-          <TableHead>
-            <TableRow>
-              {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
-              {Object.values(MOBILE_KEY_STATUS_TABLE_HEADER).map((headerValue) => {
-                return <TableCell key={headerValue}>
-                  {headerValue}
-                </TableCell>
-              })}
-            </TableRow>
-          </TableHead>
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+          />
           <TableBody>
-            {mobileKeyStatusList.slice(0, limit).map((data) => (
-              <TableRow
-                hover
-                key={data.id}
-                selected={selectedCustomerIds.indexOf(data.id) !== -1}
-              >
-                {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell> */}
-                <TableCell >
-                  <Typography
-                    variant='p'
-                    sx={{
-                      color: getColorBasedOnStatus(data.overAllStatus)
-                    }}
-                  >
-                    {data.overAllStatus}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  {data.externalBookingRefId}
-                </TableCell>
-                <TableCell>
-                  {data.reservationId}
-                </TableCell>
-                <TableCell>
-                  {data.checkInChannel}
-                </TableCell>
-                <TableCell>
-                  {data.roomNo}
-                </TableCell>
-                <TableCell>
-                  {`${data.salutation}.${data.firstName} ${data.lastName}`}
-                </TableCell>
-                <TableCell>
-                  {formatDDMMMYYYY(data.checkInDate)}
-                </TableCell>
-                <TableCell>
-                  {formatDDMMMYYYY(data.checkOutDate)}
-                </TableCell>
-                <TableCell>
-                  {data.noOfNights}
-                </TableCell>
-                <TableCell>
-                  {data.mobileKeyStatus}
-                </TableCell>
-                <TableCell>
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    onClick={() => {
-                      setDetails(data)
-                      setShowPopup(true)
-                    }}
-                  >
-                    View
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {stableSort(mobileKeyStatusList, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+                <TableRow
+                  hover
+                  key={data.id}
+                >
+                  <TableCell >
+                    <Typography
+                      variant='p'
+                      sx={{
+                        color: getColorBasedOnStatus(data.overAllStatus)
+                      }}
+                    >
+                      {data.overAllStatus}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    {data.externalBookingRefId}
+                  </TableCell>
+                  <TableCell>
+                    {data.reservationId}
+                  </TableCell>
+                  <TableCell>
+                    {data.checkInChannel}
+                  </TableCell>
+                  <TableCell>
+                    {data.roomNo}
+                  </TableCell>
+                  <TableCell>
+                    {`${data.salutation}.${data.firstName} ${data.lastName}`}
+                  </TableCell>
+                  <TableCell>
+                    {formatYYYYMMDD(data.checkInDate)}
+                  </TableCell>
+                  <TableCell>
+                    {formatYYYYMMDD(data.checkOutDate)}
+                  </TableCell>
+                  <TableCell>
+                    {data.noOfNights}
+                  </TableCell>
+                  <TableCell>
+                    {data.mobileKeyStatus}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={() => {
+                        setDetails(data)
+                        setShowPopup(true)
+                      }}
+                    >
+                      View
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={mobileKeyStatusList.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
+        rowsPerPage={rowsPerPage}
         page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
       {showPopup && details && <MobileIssuanceSummary
         open={showPopup}

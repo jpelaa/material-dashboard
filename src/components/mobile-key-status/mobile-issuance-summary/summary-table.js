@@ -1,7 +1,7 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { format } from "date-fns";
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from "src/static/constants";
-import { formatDDMMMYYYY } from "src/utils/date";
+import { formatYYYYMMDDHHMM } from "src/utils/date";
 
 const SummaryTable = ({ rows = [] }) => {
     return (
@@ -10,8 +10,8 @@ const SummaryTable = ({ rows = [] }) => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {Object.values(MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER).map((data) => {
-                                return <TableCell key={data}>{data}</TableCell>
+                            {MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER.map(({ label, id }) => {
+                                return <TableCell key={id}>{label}</TableCell>
                             })}
                         </TableRow>
                     </TableHead>
@@ -27,9 +27,9 @@ const SummaryTable = ({ rows = [] }) => {
                                     {row.email}
                                 </TableCell>
                                 <TableCell >{row.guestType}</TableCell>
-                                <TableCell >{formatDDMMMYYYY(row.requestedOn)}</TableCell>
+                                <TableCell >{formatYYYYMMDDHHMM(row.requestedOn)}</TableCell>
                                 <TableCell >{row.requestStatus}</TableCell>
-                                <TableCell >{formatDDMMMYYYY(row.responseDateTime)}</TableCell>
+                                <TableCell >{formatYYYYMMDDHHMM(row.responseDateTime)}</TableCell>
                                 <TableCell >{row.responseBy}</TableCell>
                                 <TableCell >{row.comment}</TableCell>
                             </TableRow>

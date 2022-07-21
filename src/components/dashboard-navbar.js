@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import { Menu, Search } from '@mui/icons-material';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
@@ -44,11 +43,11 @@ export const DashboardNavbar = (props) => {
               }
             }}
           >
-            <MenuIcon fontSize="small" />
+            <Menu fontSize="small" />
           </IconButton>
           <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
+              <Search fontSize="small" />
             </IconButton>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />

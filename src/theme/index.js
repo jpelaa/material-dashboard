@@ -151,7 +151,7 @@ export const theme = createTheme({
           color: WHITE_COLOR,
         },
       }
-    }
+    },
   },
   palette: {
     neutral: {
