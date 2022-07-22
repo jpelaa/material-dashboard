@@ -10,6 +10,9 @@ const MobileKeyStatus = () => {
     const [commonFilterValue, setCommonFilterValue] = useState('');
     const [filters, setFilters] = useState({});
 
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('');
+
     const handleFilterChange = (event) => {
         setEnableFilter(event.target.checked);
         if (event.target.checked === false) {
@@ -31,6 +34,20 @@ const MobileKeyStatus = () => {
         setFilters(filtersCopy)
     }
 
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === "asc";
+        setOrder(isAsc ? "desc" : "asc");
+        setOrderBy(property);
+    };
+
+    const handleReset = () => {
+        setOrder('asc');
+        setOrderBy('');
+        setFilters({});
+        setCommonFilterValue('');
+    }
+
+
     console.log(enableFilter, filters, commonFilterValue, " enableFilter ")
     return (
         <Container maxWidth={false}>
@@ -43,6 +60,7 @@ const MobileKeyStatus = () => {
                         handleCommonFilterValueChange={handleCommonFilterValueChange}
                         filters={filters}
                         handleIndividualFilterChange={handleIndividualFilterChange}
+                        handleReset={handleReset}
                     />
                     <Box sx={{ mt: 3 }}>
                         <MobileKeyStatusListResults
@@ -51,6 +69,7 @@ const MobileKeyStatus = () => {
                             commonFilterValue={commonFilterValue}
                             filters={filters}
                             handleIndividualFilterChange={handleIndividualFilterChange}
+                            handleRequestSort={handleRequestSort}
                         />
                     </Box>
                 </CardContent>

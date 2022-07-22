@@ -5,7 +5,7 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon, Typography, Grid, FormGroup, FormControlLabel, Switch, IconButton
+  SvgIcon, Typography, Grid, FormGroup, FormControlLabel, Switch, IconButton, Stack
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
@@ -50,7 +50,7 @@ const FilterGrid = ({ filters, handleIndividualFilterChange }) => {
 }
 
 export const CustomerListToolbar = (props) => {
-  const { enableFilter, handleFilterChange, filterCommonValue, handleCommonFilterValueChange, filters, handleIndividualFilterChange } = props;
+  const { enableFilter, handleFilterChange, commonFilterValue, handleCommonFilterValueChange, handleReset, filters, handleIndividualFilterChange } = props;
 
 
   return <>
@@ -67,7 +67,7 @@ export const CustomerListToolbar = (props) => {
         <TextField
           fullWidth
           size='small'
-          value={filterCommonValue}
+          value={commonFilterValue}
           onChange={handleCommonFilterValueChange}
           InputProps={{
             startAdornment: (
@@ -86,9 +86,14 @@ export const CustomerListToolbar = (props) => {
         />
       </Grid>
       <Grid item xs={2}>
-        <FormGroup>
-          <FormControlLabel control={<Switch size='small' inputProps={{ 'aria-label': 'controlled' }} value={enableFilter} onChange={handleFilterChange} />} label="Enable Filter" />
-        </FormGroup>
+        <Stack direction="row" justifyContent="center"
+          alignItems="center">
+          <FormGroup >
+            <FormControlLabel control={<Switch size='small' inputProps={{ 'aria-label': 'controlled' }} value={enableFilter} onChange={handleFilterChange} />} label="Enable Filter" />
+          </FormGroup>
+          <Button variant="contained" size='small' onClick={handleReset} >reset</Button>
+        </Stack>
+
       </Grid>
     </Grid>
     {/* {enableFilter ? <FilterGrid filters={filters} handleIndividualFilterChange={handleIndividualFilterChange} /> : null} */}

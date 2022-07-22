@@ -177,25 +177,14 @@ function EnhancedTableHead(props) {
 }
 
 
-export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterValue, filters, enableFilter, handleIndividualFilterChange, ...rest }) => {
+export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy, commonFilterValue, filters, enableFilter, handleIndividualFilterChange, handleRequestSort, ...rest }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [showPopup, setShowPopup] = useState(false);
   const [details, setDetails] = useState(null);
 
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('');
-  console.log(commonFilterValue, " commonFilterValue ")
   const filteredMobileKeyStatusList = filterAll({ commonFilterValue, filters, arr: mobileKeyStatusList })
-
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
