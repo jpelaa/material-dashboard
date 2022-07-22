@@ -161,82 +161,84 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
 
   return (
     <Box sx={{ width: '100%' }}>
-      <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 750 }}
-          aria-labelledby="tableTitle"
-          size={'small'}
-        >
-          <EnhancedTableHead
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-          />
-          <TableBody>
-            {stableSort(filteredMobileKeyStatusList, getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
-                <TableRow
-                  hover
-                  key={data.id}
-                >
-                  <TableCell >
-                    <Typography
-                      variant='p'
-                      sx={{
-                        color: getColorBasedOnStatus(data.overAllStatus)
-                      }}
-                    >
-                      {data.overAllStatus}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    {data.externalBookingRefId}
-                  </TableCell>
-                  <TableCell>
-                    {data.reservationId}
-                  </TableCell>
-                  <TableCell>
-                    {data.checkInChannel}
-                  </TableCell>
-                  <TableCell>
-                    {data.roomNo}
-                  </TableCell>
-                  <TableCell>
-                    {getGuestName(data)}
-                  </TableCell>
-                  <TableCell>
-                    {formatYYYYMMDD(data.checkInDate)}
-                  </TableCell>
-                  <TableCell>
-                    {formatYYYYMMDD(data.checkOutDate)}
-                  </TableCell>
-                  <TableCell>
-                    {data.noOfNights}
-                  </TableCell>
-                  <TableCell>
-                    {data.mobileKeyStatus}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      sx={{
-                        lineHeight: 0.5,
+      <Paper elevation={12}  >
+        <TableContainer component={Paper}>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={'small'}
+          >
+            <EnhancedTableHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+            />
+            <TableBody>
+              {stableSort(filteredMobileKeyStatusList, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+                  <TableRow
+                    hover
+                    key={data.id}
+                  >
+                    <TableCell >
+                      <Typography
+                        variant='p'
+                        sx={{
+                          color: getColorBasedOnStatus(data.overAllStatus)
+                        }}
+                      >
+                        {data.overAllStatus}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      {data.externalBookingRefId}
+                    </TableCell>
+                    <TableCell>
+                      {data.reservationId}
+                    </TableCell>
+                    <TableCell>
+                      {data.checkInChannel}
+                    </TableCell>
+                    <TableCell>
+                      {data.roomNo}
+                    </TableCell>
+                    <TableCell>
+                      {getGuestName(data)}
+                    </TableCell>
+                    <TableCell>
+                      {formatYYYYMMDD(data.checkInDate)}
+                    </TableCell>
+                    <TableCell>
+                      {formatYYYYMMDD(data.checkOutDate)}
+                    </TableCell>
+                    <TableCell>
+                      {data.noOfNights}
+                    </TableCell>
+                    <TableCell>
+                      {data.mobileKeyStatus}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        sx={{
+                          lineHeight: 0.5,
 
-                      }}
-                      onClick={() => {
-                        setDetails(data)
-                        setShowPopup(true)
-                      }}
-                    >
-                      View
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                        }}
+                        onClick={() => {
+                          setDetails(data)
+                          setShowPopup(true)
+                        }}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

@@ -96,6 +96,13 @@ export const theme = createTheme({
         }
       }
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Gilroy'
+        }
+      }
+    },
     MuiTableHead: {
       styleOverrides: {
         root: {
@@ -231,7 +238,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: 'Gilroy-Light',
+    fontFamily: 'TfArrow',
     // body1: {
     //   fontSize: '1rem',
     //   fontWeight: 400,
