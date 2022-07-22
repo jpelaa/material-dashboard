@@ -2,11 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
-  Avatar,
   Box,
   Button,
   Card,
-  Checkbox,
   Chip,
   Grid,
   IconButton,
@@ -28,12 +26,12 @@ import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 import MobileIssuanceSummary from './mobile-issuance-summary';
 import { formatYYYYMMDD } from 'src/utils/date';
 import { getColorBasedOnStatus } from 'src/utils';
-import { Close, Search } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 
 const getGuestName = ({ salutation, firstName, lastName }) => `${salutation}.${firstName} ${lastName}`
 
 const filterAll = ({ arr, filters, commonFilterValue }) => {
-  return arr.filter((data, index) => {
+  return arr.filter((data) => {
     const filterKeyArr = Object.keys(filters);
     if (commonFilterValue.length > 0 || filterKeyArr.length > 0) {
       let boolean = []

@@ -1,5 +1,4 @@
 import { Button, Link, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, Typography } from "@mui/material";
-import { format } from "date-fns";
 import { useState } from "react";
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from "src/static/constants";
 import { formatYYYYMMDDWith12hoursAMPM } from "src/utils/date";
