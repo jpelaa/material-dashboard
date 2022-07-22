@@ -52,13 +52,10 @@ const FilterGrid = ({ filters, handleIndividualFilterChange }) => {
 export const CustomerListToolbar = (props) => {
   const { enableFilter, handleFilterChange, filterCommonValue, handleCommonFilterValueChange, filters, handleIndividualFilterChange } = props;
 
-  const handleSearchChange = (event) => {
-    handleCommonFilterValueChange(event)
-  }
 
   return <>
     <Grid container spacing={2} alignItems="center">
-      <Grid item xs={10}>
+      <Grid item xs={6}>
         <Typography
           sx={{ m: 1 }}
           variant="h5"
@@ -66,12 +63,12 @@ export const CustomerListToolbar = (props) => {
           Mobile Key Status List
         </Typography>
       </Grid>
-      {/* <Grid item xs={4}>
+      <Grid item xs={4}>
         <TextField
           fullWidth
           size='small'
           value={filterCommonValue}
-          onChange={handleSearchChange}
+          onChange={handleCommonFilterValueChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -87,13 +84,13 @@ export const CustomerListToolbar = (props) => {
           placeholder="Search"
           variant="outlined"
         />
-      </Grid> */}
+      </Grid>
       <Grid item xs={2}>
         <FormGroup>
           <FormControlLabel control={<Switch size='small' inputProps={{ 'aria-label': 'controlled' }} value={enableFilter} onChange={handleFilterChange} />} label="Enable Filter" />
         </FormGroup>
       </Grid>
     </Grid>
-    {enableFilter ? <FilterGrid filters={filters} handleIndividualFilterChange={handleIndividualFilterChange} /> : null}
+    {/* {enableFilter ? <FilterGrid filters={filters} handleIndividualFilterChange={handleIndividualFilterChange} /> : null} */}
   </>
 };

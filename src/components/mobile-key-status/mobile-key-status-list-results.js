@@ -35,26 +35,50 @@ const getGuestName = ({ salutation, firstName, lastName }) => `${salutation}.${f
 
 const filterAll = ({ arr, filters, commonFilterValue }) => {
   return arr.filter((data, index) => {
+    console.log({ arr, filters, commonFilterValue }, ' filter funct ')
     const filterKeyArr = Object.keys(filters);
-    if (filterKeyArr.length > 0) {
-      const bool = []
-      filterKeyArr.forEach((filterKey) => {
-        if (filters[filterKey]) {
-          const filterInLowerCase = filters[filterKey].toLowerCase().trim();
-          if (filterKey === 'guestName') {
-            const guestNameInLowerCase = getGuestName(data).toLowerCase().trim();
-            bool.push(guestNameInLowerCase.indexOf(filterInLowerCase) > -1)
-          } else if (['checkInDate', 'checkOutDate'].includes(filterKey)) {
-            const dateFormatted = formatYYYYMMDD(data[filterKey]);
-            bool.push(dateFormatted.indexOf(filterInLowerCase) > -1);
-          } else if (data[filterKey]) {
-            const dataInLowerCase = data[filterKey].toString().toLowerCase().trim();
-            bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+    if (commonFilterValue.length > 0 || filterKeyArr.length > 0) {
+      let boolean = []
+      if (commonFilterValue.length > 0) {
+        const bool = []
+        console.log('inside commonfiltervalue ')
+        MOBILE_KEY_STATUS_TABLE_HEADER.forEach(({ id }) => {
+          const filterInLowerCase = commonFilterValue.toLowerCase().trim();
+          if (id !== 'mobileKeys' || id !== 'action') {
+            if (id === 'guestName') {
+              const guestNameInLowerCase = getGuestName(data).toLowerCase().trim();
+              bool.push(guestNameInLowerCase.indexOf(filterInLowerCase) > -1)
+            } else if (['checkInDate', 'checkOutDate'].includes(id)) {
+              const dateFormatted = formatYYYYMMDD(data[id]);
+              bool.push(dateFormatted.indexOf(filterInLowerCase) > -1);
+            } else if (data[id]) {
+              const dataInLowerCase = data[id].toString().toLowerCase().trim();
+              bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+            }
           }
-        }
-      })
-      console.log(bool, index, " bool ")
-      return bool.every(Boolean)
+        })
+        boolean = [...boolean, ...bool];
+      }
+      if (filterKeyArr.length > 0) {
+        const bool = []
+        filterKeyArr.forEach((filterKey) => {
+          if (filters[filterKey]) {
+            const filterInLowerCase = filters[filterKey].toLowerCase().trim();
+            if (filterKey === 'guestName') {
+              const guestNameInLowerCase = getGuestName(data).toLowerCase().trim();
+              bool.push(guestNameInLowerCase.indexOf(filterInLowerCase) > -1)
+            } else if (['checkInDate', 'checkOutDate'].includes(filterKey)) {
+              const dateFormatted = formatYYYYMMDD(data[filterKey]);
+              bool.push(dateFormatted.indexOf(filterInLowerCase) > -1);
+            } else if (data[filterKey]) {
+              const dataInLowerCase = data[filterKey].toString().toLowerCase().trim();
+              bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+            }
+          }
+        })
+        boolean = [...boolean, ...bool];
+      }
+      return boolean.some(Boolean);
     } else {
       return true;
     }
@@ -153,7 +177,7 @@ function EnhancedTableHead(props) {
 }
 
 
-export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterValue, filters, enableFilter, ...rest }) => {
+export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterValue, filters, enableFilter, handleIndividualFilterChange, ...rest }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -162,7 +186,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
-
+  console.log(commonFilterValue, " commonFilterValue ")
   const filteredMobileKeyStatusList = filterAll({ commonFilterValue, filters, arr: mobileKeyStatusList })
 
 
@@ -197,16 +221,15 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              <TableRow>
+              {enableFilter ? <TableRow>
                 {MOBILE_KEY_STATUS_TABLE_HEADER.map((data, index) => {
-
                   if (data.filterEnabled) {
                     return <TableCell
                       align="center"
                       sx={{
                         padding: '0.75rem'
                       }}
-                      key={index}>
+                      key={data.id}>
                       <TextField
                         sx={{
                           height: '1rem',
@@ -214,12 +237,14 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
                         placeholder={`search`}
                         id="filled-start-adornment"
                         size="small"
+                        value={filters[data.id] || ''}
+                        onChange={(event) => handleIndividualFilterChange({ id: data.id, value: event.target.value })}
                         InputProps={{
                           endAdornment: <InputAdornment sx={{ marginRight: 0 }} position="start">
                             <IconButton
                               size='small'
                               aria-label={`search ${data.id}`}
-                              onClick={() => { }}
+                              onClick={() => handleIndividualFilterChange({ id: data.id, value: undefined })}
                             >
                               <Close sx={{ fontSize: "1rem" }} />
                             </IconButton>
@@ -232,7 +257,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
                     <TableCell></TableCell>
                   }
                 })}
-              </TableRow>
+              </TableRow> : null}
               {stableSort(filteredMobileKeyStatusList, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
                   <TableRow

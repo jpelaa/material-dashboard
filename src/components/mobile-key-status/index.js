@@ -22,10 +22,13 @@ const MobileKeyStatus = () => {
     }
 
     const handleIndividualFilterChange = ({ id, value }) => {
-        setFilters({
-            ...filters,
-            [id]: value
-        })
+        const filtersCopy = { ...filters };
+        if (value === undefined) {
+            delete filtersCopy[id];
+        } else {
+            filtersCopy[id] = value;
+        }
+        setFilters(filtersCopy)
     }
 
     console.log(enableFilter, filters, commonFilterValue, " enableFilter ")
@@ -47,6 +50,7 @@ const MobileKeyStatus = () => {
                             mobileKeyStatusList={mobileKeyStatus}
                             commonFilterValue={commonFilterValue}
                             filters={filters}
+                            handleIndividualFilterChange={handleIndividualFilterChange}
                         />
                     </Box>
                 </CardContent>
