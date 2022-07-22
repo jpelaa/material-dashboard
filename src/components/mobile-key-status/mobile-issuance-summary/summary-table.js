@@ -1,9 +1,14 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Link, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { format } from "date-fns";
+import { useState } from "react";
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from "src/static/constants";
 import { formatYYYYMMDDHHMM } from "src/utils/date";
 
 const SummaryTable = ({ rows = [] }) => {
+
+    const [selectedId, setSelectedId] = useState('');
+    const [shouldShowChange, setShowChange] = useState(false);
+
     return (
         <Paper elevation={12} variant="outlined">
             <TableContainer component={Paper} >
@@ -38,7 +43,20 @@ const SummaryTable = ({ rows = [] }) => {
                                 }}>{formatYYYYMMDDHHMM(row.requestedOn)}</TableCell>
                                 <TableCell sx={{
                                     width: "10%"
-                                }}>{row.requestStatus}</TableCell>
+                                }}>
+                                    {shouldShowChange && row.id === selectedId ?
+                                        <Stack direction="row" justifyContent="center" spacing={1}
+                                            alignItems="center">
+                                            <Button variant="contained" color="success" size='small' onClick={() => { }} >Approve</Button>
+                                            <Button variant="contained" color="error" size='small' onClick={() => { }} >Reject</Button>
+                                        </Stack>
+                                        : <Typography variant="body2" sx={{ fontFamily: 'Gilroy' }}>{row.requestStatus}
+                                            <Link onClick={() => {
+                                                setShowChange(true);
+                                                setSelectedId(row.id)
+                                            }}>(change)</Link>
+                                        </Typography>}
+                                </TableCell>
                                 <TableCell sx={{
                                     width: "14%"
                                 }}>{formatYYYYMMDDHHMM(row.responseDateTime)}</TableCell>
