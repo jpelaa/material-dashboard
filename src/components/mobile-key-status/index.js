@@ -70,6 +70,8 @@ const MobileKeyStatus = () => {
                             filters={filters}
                             handleIndividualFilterChange={handleIndividualFilterChange}
                             handleRequestSort={handleRequestSort}
+                            order={order}
+                            orderBy={orderBy}
                         />
                     </Box>
                 </CardContent>
