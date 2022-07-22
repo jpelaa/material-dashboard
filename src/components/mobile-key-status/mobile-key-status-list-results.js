@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
@@ -35,13 +34,11 @@ const getGuestName = ({ salutation, firstName, lastName }) => `${salutation}.${f
 
 const filterAll = ({ arr, filters, commonFilterValue }) => {
   return arr.filter((data, index) => {
-    console.log({ arr, filters, commonFilterValue }, ' filter funct ')
     const filterKeyArr = Object.keys(filters);
     if (commonFilterValue.length > 0 || filterKeyArr.length > 0) {
       let boolean = []
       if (commonFilterValue.length > 0) {
         const bool = []
-        console.log('inside commonfiltervalue ')
         MOBILE_KEY_STATUS_TABLE_HEADER.forEach(({ id }) => {
           const filterInLowerCase = commonFilterValue.toLowerCase().trim();
           if (id !== 'mobileKeys' || id !== 'action') {

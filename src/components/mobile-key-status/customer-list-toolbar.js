@@ -7,9 +7,6 @@ import {
   InputAdornment,
   SvgIcon, Typography, Grid, FormGroup, FormControlLabel, Switch, IconButton, Stack
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
-import { Download as DownloadIcon } from '../../icons/download';
 import { Close, FilterList, Search } from '@mui/icons-material';
 import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
 
@@ -76,7 +73,7 @@ export const CustomerListToolbar = (props) => {
                   color="action"
                   fontSize="small"
                 >
-                  <SearchIcon />
+                  <Search />
                 </SvgIcon>
               </InputAdornment>
             )

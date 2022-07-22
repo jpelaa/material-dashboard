@@ -48,7 +48,6 @@ const MobileKeyStatus = () => {
     }
 
 
-    console.log(enableFilter, filters, commonFilterValue, " enableFilter ")
     return (
         <Container maxWidth={false}>
             <Card>
