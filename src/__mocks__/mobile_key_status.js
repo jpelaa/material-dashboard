@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 export const mobileKeyStatus = [
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",
@@ -33,7 +33,7 @@ export const mobileKeyStatus = [
   },
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",
@@ -63,7 +63,7 @@ export const mobileKeyStatus = [
   },
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",
@@ -93,7 +93,7 @@ export const mobileKeyStatus = [
   },
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",
@@ -123,7 +123,7 @@ export const mobileKeyStatus = [
   },
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",
@@ -153,7 +153,7 @@ export const mobileKeyStatus = [
   },
   {
     id: uuid(),
-    overAllStatus: "InComplete",
+    overAllStatus: "Pending",
     externalBookingRefId: "CIARYFU",
     reservationId: "1221",
     checkInChannel: "OLC",

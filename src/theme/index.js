@@ -59,7 +59,9 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           paddingLeft: 0,
-          paddingRight: 0
+          paddingRight: 0,
+          fontFamily: 'Gilroy',
+          fontSize: '0.87rem'
         }
       }
     },
@@ -107,7 +109,7 @@ export const theme = createTheme({
           fontFamily: 'Gilroy',
           lineHeight: 'normal',
           padding: '5px 12px',
-          minWidth: "110px"
+          // minWidth: "110px"
         }
       }
     },
@@ -160,12 +162,31 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTablePagination: {
+      styleOverrides: {
+        root: {
+          '.MuiTablePagination-selectLabel,.MuiTablePagination-displayedRows': {
+            fontFamily: 'Gilroy',
+          },
+        }
+      }
+    },
     MuiDialogTitle: {
       styleOverrides: {
         root: {
           backgroundColor: SECONDARY_COLOR,
           color: WHITE_COLOR,
         },
+      }
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          '.MuiFormControlLabel-label': {
+            fontFamily: 'Gilroy',
+            fontSize: '1rem'
+          }
+        }
       }
     },
   },
@@ -231,7 +252,7 @@ export const theme = createTheme({
     }
   },
   shape: {
-    borderRadius: 8
+    borderRadius: 0
   },
   shadows: [
     'none',

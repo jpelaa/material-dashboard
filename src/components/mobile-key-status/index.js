@@ -26,10 +26,10 @@ const MobileKeyStatus = () => {
 
     const handleIndividualFilterChange = ({ id, value }) => {
         const filtersCopy = { ...filters };
-        if (value === undefined) {
-            delete filtersCopy[id];
-        } else {
+        if (value) {
             filtersCopy[id] = value;
+        } else {
+            delete filtersCopy[id];
         }
         setFilters(filtersCopy)
     }

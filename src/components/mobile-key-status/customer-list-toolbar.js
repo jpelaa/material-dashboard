@@ -52,7 +52,7 @@ export const CustomerListToolbar = (props) => {
 
   return <>
     <Grid container spacing={2} alignItems="center">
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <Typography
           sx={{ m: 1 }}
           variant="h5"
@@ -62,6 +62,9 @@ export const CustomerListToolbar = (props) => {
       </Grid>
       <Grid item xs={4}>
         <TextField
+          sx={{
+            fontFamily: 'Gilroy',
+          }}
           fullWidth
           size='small'
           value={commonFilterValue}
@@ -82,13 +85,15 @@ export const CustomerListToolbar = (props) => {
           variant="outlined"
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <Stack direction="row" justifyContent="center"
-          alignItems="center">
+          alignItems="center" >
           <FormGroup >
             <FormControlLabel control={<Switch size='small' inputProps={{ 'aria-label': 'controlled' }} value={enableFilter} onChange={handleFilterChange} />} label="Enable Filter" />
           </FormGroup>
-          <Button variant="contained" size='small' onClick={handleReset} >reset</Button>
+          <Button sx={{
+            fontFamily: 'Gilroy',
+          }} variant="contained" size='small' onClick={handleReset} >reset</Button>
         </Stack>
 
       </Grid>

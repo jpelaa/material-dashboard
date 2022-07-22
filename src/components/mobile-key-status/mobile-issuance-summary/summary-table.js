@@ -1,8 +1,8 @@
-import { Button, Link, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Link, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { useState } from "react";
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from "src/static/constants";
-import { formatYYYYMMDDHHMM } from "src/utils/date";
+import { formatYYYYMMDDWith12hoursAMPM } from "src/utils/date";
 
 const SummaryTable = ({ rows = [] }) => {
 
@@ -25,24 +25,27 @@ const SummaryTable = ({ rows = [] }) => {
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell sx={{
-                                    width: "5%"
-                                }}>
+                                <TableCell
+                                    sx={{
+                                        width: "4%"
+                                    }}>
                                     {index + 1}
                                 </TableCell>
-                                <TableCell sx={{
-                                    width: "16%"
-                                }}>
+                                <TableCell
+                                    align="right"
+                                    sx={{
+                                        width: "16%"
+                                    }}>
                                     {row.email}
                                 </TableCell>
                                 <TableCell sx={{
-                                    width: "10%"
+                                    width: "7%"
                                 }}>{row.guestType}</TableCell>
                                 <TableCell sx={{
                                     width: "14%"
-                                }}>{formatYYYYMMDDHHMM(row.requestedOn)}</TableCell>
+                                }}>{formatYYYYMMDDWith12hoursAMPM(row.requestedOn)}</TableCell>
                                 <TableCell sx={{
-                                    width: "10%"
+                                    width: "12%"
                                 }}>
                                     {shouldShowChange && row.id === selectedId ?
                                         <Stack direction="row" justifyContent="center" spacing={1}
@@ -51,7 +54,9 @@ const SummaryTable = ({ rows = [] }) => {
                                             <Button variant="contained" color="error" size='small' onClick={() => { }} >Reject</Button>
                                         </Stack>
                                         : <Typography variant="body2" sx={{ fontFamily: 'Gilroy' }}>{row.requestStatus}
-                                            <Link onClick={() => {
+                                            <Link sx={{
+                                                cursor: "pointer"
+                                            }} onClick={() => {
                                                 setShowChange(true);
                                                 setSelectedId(row.id)
                                             }}>(change)</Link>
@@ -59,13 +64,23 @@ const SummaryTable = ({ rows = [] }) => {
                                 </TableCell>
                                 <TableCell sx={{
                                     width: "14%"
-                                }}>{formatYYYYMMDDHHMM(row.responseDateTime)}</TableCell>
+                                }}>{formatYYYYMMDDWith12hoursAMPM(row.responseDateTime)}</TableCell>
                                 <TableCell sx={{
-                                    width: "10%"
+                                    width: "9%"
                                 }}>{row.responseBy}</TableCell>
                                 <TableCell sx={{
-                                    width: "21%"
-                                }}>{row.comment}</TableCell>
+                                    width: "24%"
+                                }}>
+                                    <TextareaAutosize
+                                        aria-label="comment"
+                                        placeholder="comments..."
+                                        value={row.comment}
+                                        style={{ width: 200 }}
+                                        onBlur={() => {
+                                            console.log("Out focus save comments ")
+                                        }}
+                                    />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

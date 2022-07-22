@@ -12,7 +12,7 @@ const MobileIssuanceSummary = ({ roomNo, details, open, handleClose, scroll = "p
             scroll={scroll}
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
-            maxWidth="md"
+            maxWidth="lg"
         >
             <AppBar sx={{ position: 'relative', backgroundColor: "secondary.main" }}>
                 <Toolbar>

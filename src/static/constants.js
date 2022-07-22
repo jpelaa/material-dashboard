@@ -91,3 +91,24 @@ export const MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER = [
         label: 'Comments',
     },
 ];
+
+export const OVERALL_STATUS = {
+    pending: 'pending',
+    complete: 'complete'
+};
+
+
+// Palettes 
+export const PALETTE_TYPES = {
+    primary: 'primary',
+    secondary: 'secondary',
+    success: 'success',
+    warning: 'warning',
+    error: 'error',
+    info: 'info'
+}
+
+export const PALETTE_COLOR_TYPES = {
+    light: 'light',
+    dark: 'dark',
+}

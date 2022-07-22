@@ -5,7 +5,7 @@ import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { DRAWER_WIDTH } from 'src/static/styles';
 
-const DashboardLayoutRoot = styled('div')(({ theme, open }) => ({
+const DashboardLayoutRoot = styled('div')(({ open }) => ({
   display: 'flex',
   flex: '1 1 auto',
   maxWidth: '100%',

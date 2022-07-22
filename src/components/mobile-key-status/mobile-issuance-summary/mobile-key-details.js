@@ -2,13 +2,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { format } from "date-fns";
 
 const Header = ({ children }) => {
-    return <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: '1rem' }} component="div" >
+    return <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: '0.9rem', fontFamily: 'GilRoy' }} component="div" >
         {children}
     </Typography>;
 }
 
 const Content = ({ children }) => {
-    return <Typography variant="body2" component="div" sx={{ fontSize: '0.7rem' }}>
+    return <Typography variant="body2" component="div" sx={{ fontSize: '0.7rem', fontFamily: 'GilRoy' }}>
         {children}
     </Typography>;
 }
@@ -18,7 +18,7 @@ const MobileKeyDetails = ({ details }) => {
         <Box sx={{
             width: "100%",
             mb: 2,
-            px: 3
+            px: 3,
         }}
         >
             <Grid container spacing={2}>

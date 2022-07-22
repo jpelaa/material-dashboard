@@ -176,7 +176,7 @@ function EnhancedTableHead(props) {
 
 export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy, commonFilterValue, filters, enableFilter, handleIndividualFilterChange, handleRequestSort, ...rest }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const [showPopup, setShowPopup] = useState(false);
   const [details, setDetails] = useState(null);
@@ -188,7 +188,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 25));
     setPage(0);
   };
 
@@ -254,18 +254,21 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="left"
                       sx={{
                         width: "8%",
+                        minWidth: "110px"
                       }}>
                       <Chip
                         sx={{
                           width: "100%",
                           margin: '0 2px',
                           fontFamily: 'Gilroy',
-                          borderRadius: 0.5,
+                          borderRadius: 0,
                           height: '100%',
                           fontSize: '0.7rem',
                           '.MuiChip-label': {
                             paddingLeft: 0.5,
-                            paddingRight: 0.5
+                            paddingRight: 0.5,
+                            paddingTop: 0.25,
+                            paddingBottom: 0.25
                           }
                         }}
                         label={data.overAllStatus}
@@ -276,6 +279,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "9%",
+                        minWidth: "110px"
                       }}>
                       {data.externalBookingRefId}
                     </TableCell>
@@ -283,6 +287,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "9%",
+                        minWidth: "110px"
+
                       }}>
                       {data.reservationId}
                     </TableCell>
@@ -290,6 +296,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "11%",
+                        minWidth: "110px"
+
                       }}>
                       {data.checkInChannel}
                     </TableCell>
@@ -297,6 +305,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "10%",
+                        minWidth: "110px"
+
                       }}>
                       {data.roomNo}
                     </TableCell>
@@ -304,6 +314,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "12%",
+                        minWidth: "110px"
+
                       }}>
                       {getGuestName(data)}
                     </TableCell>
@@ -311,6 +323,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "12%",
+                        minWidth: "110px"
+
                       }}>
                       {formatYYYYMMDD(data.checkInDate)}
                     </TableCell>
@@ -318,6 +332,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "12%",
+                        minWidth: "110px"
+
                       }}>
                       {formatYYYYMMDD(data.checkOutDate)}
                     </TableCell>
@@ -325,6 +341,8 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                       align="center"
                       sx={{
                         width: "6%",
+                        minWidth: "110px"
+
                       }}>
                       {data.noOfNights}
                     </TableCell>
@@ -345,9 +363,9 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
                         variant="outlined"
                         sx={{
                           lineHeight: 0.5,
-                          padding: '0.25rem 0.5rem',
+                          padding: '0.279rem 0.5rem',
                           minWidth: 40,
-                          borderRadius: "5px",
+                          // borderRadius: "5px",
                           fontFamily: 'Gilroy',
                           fontSize: '0.7rem'
                         }}
@@ -366,6 +384,9 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, order, orderBy
         </TableContainer>
       </Paper>
       <TablePagination
+        // sx={{
+        //   fontFamily: 'Gilroy'
+        // }}
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={mobileKeyStatusList.length}

@@ -40,14 +40,11 @@ export const DashboardSidebar = (props) => {
       if (!router.isReady) {
         return;
       }
-
-      if (open) {
-        onClose?.();
-      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.asPath]
   );
+
   const content = (
     <>
       <Box
@@ -66,7 +63,7 @@ export const DashboardSidebar = (props) => {
                 cursor: 'pointer',
                 display: 'flex',
                 justifyContent: 'space-between',
-                borderRadius: 1
+                // borderRadius: 1
               }}
             >
               <Image
