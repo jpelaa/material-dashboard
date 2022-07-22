@@ -20,6 +20,8 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import { DRAWER_WIDTH } from 'src/static/styles';
+import Image from 'next/image';
+import logo from "../../public/static/images/logo.png"
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -94,25 +96,18 @@ export const DashboardSidebar = (props) => {
                 cursor: 'pointer',
                 display: 'flex',
                 justifyContent: 'space-between',
-                px: 3,
-                py: '11px',
+                // px: 3,
+                // py: '11px',
                 borderRadius: 1
               }}
             >
-              <div>
-                <Typography
-                  color="inherit"
-                  variant="subtitle1"
-                >
-                  Jumeirah
-                </Typography>
-              </div>
-              <SelectorIcon
-                sx={{
-                  color: 'neutral.500',
-                  width: 14,
-                  height: 14
-                }}
+
+              <Image
+                alt="Logo"
+                src={logo}
+                layout="intrinsic"
+                width={130}
+                height={40}
               />
             </Box>
           </Box>
