@@ -5,7 +5,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
         filterEnabled: true,
     },
     {
-        "id": "externalBookingRef",
+        "id": "externalBookingRefId",
         "label": "External Booking Ref.",
         filterEnabled: true,
     },
@@ -20,7 +20,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
         filterEnabled: true,
     },
     {
-        "id": "roomNumber",
+        "id": "roomNo",
         "label": "Room Number",
         filterEnabled: true,
     },

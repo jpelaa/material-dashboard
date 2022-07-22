@@ -30,6 +30,8 @@ import { formatYYYYMMDD } from 'src/utils/date';
 import { getColorBasedOnStatus } from 'src/utils';
 import { Close, Search } from '@mui/icons-material';
 
+const getGuestName = ({ salutation, firstName, lastName }) => `${salutation}.${firstName} ${lastName}`
+
 const filterAll = ({ arr, filters, commonFilterValue }) => {
   return arr.filter((data, index) => {
     const filterKeyArr = Object.keys(filters);
@@ -37,9 +39,17 @@ const filterAll = ({ arr, filters, commonFilterValue }) => {
       const bool = []
       filterKeyArr.forEach((filterKey) => {
         if (filters[filterKey]) {
-          const filterInLowerCase = filters[filterKey].toLowerCase();
-          const dataInLowerCase = data[filterKey].toLowerCase();
-          bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+          const filterInLowerCase = filters[filterKey].toLowerCase().trim();
+          if (filterKey === 'guestName') {
+            const guestNameInLowerCase = getGuestName(data).toLowerCase().trim();
+            bool.push(guestNameInLowerCase.indexOf(filterInLowerCase) > -1)
+          } else if (['checkInDate', 'checkOutDate'].includes(filterKey)) {
+            const dateFormatted = formatYYYYMMDD(data[filterKey]);
+            bool.push(dateFormatted.indexOf(filterInLowerCase) > -1);
+          } else if (data[filterKey]) {
+            const dataInLowerCase = data[filterKey].toString().toLowerCase().trim();
+            bool.push(dataInLowerCase.indexOf(filterInLowerCase) > -1)
+          }
         }
       })
       console.log(bool, index, " bool ")
@@ -192,7 +202,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
                     {data.roomNo}
                   </TableCell>
                   <TableCell>
-                    {`${data.salutation}.${data.firstName} ${data.lastName}`}
+                    {getGuestName(data)}
                   </TableCell>
                   <TableCell>
                     {formatYYYYMMDD(data.checkInDate)}

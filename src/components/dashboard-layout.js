@@ -3,15 +3,16 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
+import { DRAWER_WIDTH } from 'src/static/styles';
 
-const DashboardLayoutRoot = styled('div')(({ theme }) => ({
+const DashboardLayoutRoot = styled('div')(({ theme, open }) => ({
   display: 'flex',
   flex: '1 1 auto',
   maxWidth: '100%',
   paddingTop: 64,
-  [theme.breakpoints.up('lg')]: {
-    paddingLeft: 200
-  }
+  ...(open && {
+    paddingLeft: DRAWER_WIDTH
+  }),
 }));
 
 export const DashboardLayout = (props) => {
@@ -20,7 +21,7 @@ export const DashboardLayout = (props) => {
 
   return (
     <>
-      <DashboardLayoutRoot>
+      <DashboardLayoutRoot open={isSidebarOpen}>
         <Box
           sx={{
             display: 'flex',
@@ -32,10 +33,13 @@ export const DashboardLayout = (props) => {
           {children}
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
+      <DashboardNavbar
+        open={isSidebarOpen}
+        onSidebarOpen={() => setSidebarOpen(!isSidebarOpen)}
+      />
 
       <DashboardSidebar
-        onClose={() => setSidebarOpen(false)}
+        onClose={() => setSidebarOpen(!isSidebarOpen)}
         open={isSidebarOpen}
       />
     </>

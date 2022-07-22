@@ -19,6 +19,7 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { DRAWER_WIDTH } from 'src/static/styles';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -30,21 +31,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const items = [
-  // {
-  //   href: '/',
-  //   icon: (<ChartBarIcon fontSize="small" />),
-  //   title: 'Dashboard'
-  // },
+
   {
     href: '/',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Mobile Key Status'
   },
-  // {
-  //   href: '/products',
-  //   icon: (<ShoppingBagIcon fontSize="small" />),
-  //   title: 'Products'
-  // },
+
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
@@ -55,21 +48,7 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
-  // {
-  //   href: '/login',
-  //   icon: (<LockIcon fontSize="small" />),
-  //   title: 'Login'
-  // },
-  // {
-  //   href: '/register',
-  //   icon: (<UserAddIcon fontSize="small" />),
-  //   title: 'Register'
-  // },
-  // {
-  //   href: '/404',
-  //   icon: (<XCircleIcon fontSize="small" />),
-  //   title: 'Error'
-  // }
+
 ];
 
 export const DashboardSidebar = (props) => {
@@ -106,21 +85,7 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          {/*  <Box sx={{ p: 3 }}>
-             <NextLink
-              href="/"
-              passHref
-            >
-              <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
-              </a>
-            </NextLink> 
-          </Box>*/}
+
           <Box sx={{ px: 2 }}>
             <Box
               sx={{
@@ -169,79 +134,12 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
-        {/* <Box
-          sx={{
-            px: 2,
-            py: 3
-          }}
-        >
-          <Typography
-            color="neutral.100"
-            variant="subtitle2"
-          >
-            Need more features?
-          </Typography>
-          <Typography
-            color="neutral.500"
-            variant="body2"
-          >
-            Check out our Pro solution template.
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 2,
-              mx: 'auto',
-              width: '160px',
-              '& img': {
-                width: '100%'
-              }
-            }}
-          >
-            <img
-              alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
-            />
-          </Box>
-          <NextLink
-            href="https://material-kit-pro-react.devias.io/"
-            passHref
-          >
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={(<OpenInNewIcon />)}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink>
-        </Box> */}
+
       </Box>
     </>
   );
 
-  // if (lgUp) {
-  //   console.log(lgUp, open, " lgUp ")
-  //   return (
-  //     <Drawer
-  //       anchor="left"
-  //       open={open}
-  //       PaperProps={{
-  //         sx: {
-  //           backgroundColor: 'secondary.main',
-  //           color: '#FFFFFF',
-  //           width: 280
-  //         }
-  //       }}
-  //       variant="permanent"
-  //     >
-  //       {content}
-  //     </Drawer>
-  //   );
-  // }
+
 
   return (
     <Drawer
@@ -252,15 +150,21 @@ export const DashboardSidebar = (props) => {
         sx: {
           backgroundColor: 'secondary.main',
           color: '#FFFFFF',
-          width: 200
+          width: DRAWER_WIDTH,
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+          },
         }
       }}
-      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
-      variant="permanent"
+      sx={{
+        zIndex: (theme) => theme.zIndex.appBar + 100,
+      }}
+      variant="persistent"
     >
       <DrawerHeader>
         <IconButton onClick={onClose}>
-          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
       {content}

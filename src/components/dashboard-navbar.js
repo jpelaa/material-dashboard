@@ -5,10 +5,25 @@ import { Menu, Search } from '@mui/icons-material';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
+import { DRAWER_WIDTH } from 'src/static/styles';
 
-const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3]
+const DashboardNavbarRoot = styled(AppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  backgroundColor: open ? theme.palette.background.paper : theme.palette.secondary.main,
+  boxShadow: theme.shadows[3],
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${DRAWER_WIDTH}px)`,
+    marginLeft: `${DRAWER_WIDTH}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
 }));
 
 export const DashboardNavbar = (props) => {
@@ -17,15 +32,8 @@ export const DashboardNavbar = (props) => {
   return (
     <>
       <DashboardNavbarRoot
-        sx={{
-          left: {
-            lg: 200
-          },
-          width: {
-            lg: 'calc(100% - 200px)'
-          }
-        }}
-        {...other}>
+        {...other}
+      >
         <Toolbar
           disableGutters
           sx={{
@@ -39,17 +47,11 @@ export const DashboardNavbar = (props) => {
             sx={{
               display: {
                 xs: 'inline-flex',
-                lg: 'none'
               }
             }}
           >
             <Menu fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <Search fontSize="small" />
-            </IconButton>
-          </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
           <Avatar
             sx={{
