@@ -2,13 +2,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { format } from "date-fns";
 
 const Header = ({ children }) => {
-    return <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} component="div" >
+    return <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: '1rem' }} component="div" >
         {children}
     </Typography>;
 }
 
 const Content = ({ children }) => {
-    return <Typography variant="body2" component="div">
+    return <Typography variant="body2" component="div" sx={{ fontSize: '0.7rem' }}>
         {children}
     </Typography>;
 }
@@ -17,7 +17,7 @@ const MobileKeyDetails = ({ details }) => {
     return (
         <Box sx={{
             width: "100%",
-            mb: 0.5,
+            mb: 2,
             px: 3
         }}
         >
@@ -28,7 +28,6 @@ const MobileKeyDetails = ({ details }) => {
                 <Grid item xs><Header>Check-Out Date</Header></Grid>
                 <Grid item xs><Header># of Nights</Header></Grid>
                 <Grid item xs><Header>Guest Name</Header></Grid>
-                <Grid item xs><Header>Room Number</Header></Grid>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item xs><Content>{details.externalBookingRefId}</Content></Grid>
@@ -37,7 +36,6 @@ const MobileKeyDetails = ({ details }) => {
                 <Grid item xs><Content>{format(details.checkOutDate, "dd/MM/yyyy")}</Content></Grid>
                 <Grid item xs><Content>{details.noOfNights}</Content></Grid>
                 <Grid item xs><Content>{`${details.salutation}.${details.firstName} ${details.lastName}`}</Content></Grid>
-                <Grid item xs><Content>{details.roomNo}</Content></Grid>
             </Grid>
         </Box>
     );

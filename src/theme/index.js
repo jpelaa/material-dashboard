@@ -19,6 +19,11 @@ export const theme = createTheme({
       defaultProps: {
         disableElevation: true
       },
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        }
+      }
     },
     MuiButtonBase: {
       defaultProps: {
@@ -99,7 +104,10 @@ export const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
-          fontFamily: 'Gilroy'
+          fontFamily: 'Gilroy',
+          lineHeight: 'normal',
+          padding: '5px 12px',
+          minWidth: "110px"
         }
       }
     },
@@ -110,12 +118,13 @@ export const theme = createTheme({
           borderBottom: 'none',
           // padding: "10px 0px",
           '& .MuiTableCell-root': {
+            color: WHITE_COLOR,
             borderBottom: 'none',
-            fontSize: '12px',
+            fontSize: '14px',
             fontWeight: 600,
             lineHeight: 1,
             letterSpacing: 0.5,
-            padding: "1rem 0.5rem"
+            padding: "0.75rem 0.5rem"
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,
@@ -133,6 +142,23 @@ export const theme = createTheme({
           },
         },
       }
+    },
+    MuiTableSortLabel: {
+      styleOverrides: {
+        root: {
+          color: WHITE_COLOR,
+          "&:hover": {
+            color: SECONDARY_COLOR,
+          },
+          '&$active': {
+            color: SECONDARY_COLOR,
+          },
+        },
+        active: {},
+        icon: {
+          color: 'inherit !important'
+        },
+      },
     },
     MuiDialogTitle: {
       styleOverrides: {

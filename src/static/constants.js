@@ -46,7 +46,8 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
     },
     {
         "id": "mobileKeys",
-        "label": "Mobile Keys (Issued/Requested)",
+        "label": "Mobile Keys",
+        caption: " (Issued/Requested)",
         filterEnabled: false,
     },
     {

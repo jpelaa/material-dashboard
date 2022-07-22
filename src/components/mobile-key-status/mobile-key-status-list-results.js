@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   Checkbox,
+  Chip,
   Grid,
   IconButton,
   InputAdornment,
@@ -97,25 +98,47 @@ function EnhancedTableHead(props) {
     onRequestSort(event, property);
   };
 
+  const renderHeaderContent = ({ id, label, caption }) => {
+    if (id === 'mobileKeys') {
+      return <Box><Typography sx={{
+        fontFamily: 'Gilroy',
+        fontSize: '14px',
+        fontWeight: 600,
+        lineHeight: 1,
+        letterSpacing: 0.5,
+      }} variant="subtitle2" component="div">{label}</Typography>
+        <Typography sx={{
+          fontFamily: 'Gilroy',
+          fontSize: '10px',
+          fontWeight: 500,
+          lineHeight: 0.75,
+          letterSpacing: 0.4,
+        }} variant="body2" component="div">{caption}</Typography></Box>
+    }
+    return <Typography sx={{
+      fontFamily: 'Gilroy',
+      fontSize: '14px',
+      fontWeight: 600,
+      lineHeight: 1,
+      letterSpacing: 0.5,
+    }} variant="subtitle2" component="div">{label}</Typography>;
+  }
+
   return (
-    <TableHead sx={{
-      backgroundColor: 'primary.light',
-    }}>
+    <TableHead>
       <TableRow>
         {MOBILE_KEY_STATUS_TABLE_HEADER.map((headCell) => (
           <TableCell
+            align='center'
             key={headCell.id}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
-              sx={{
-                color: 'primary.dark'
-              }}
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
+              {renderHeaderContent(headCell)}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -164,7 +187,7 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
       <Paper elevation={12}  >
         <TableContainer component={Paper}>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 1080 }}
             aria-labelledby="tableTitle"
             size={'small'}
           >
@@ -174,56 +197,148 @@ export const MobileKeyStatusListResults = ({ mobileKeyStatusList, commonFilterVa
               onRequestSort={handleRequestSort}
             />
             <TableBody>
+              <TableRow>
+                {MOBILE_KEY_STATUS_TABLE_HEADER.map((data, index) => {
+
+                  if (data.filterEnabled) {
+                    return <TableCell
+                      align="center"
+                      sx={{
+                        padding: '0.75rem'
+                      }}
+                      key={index}>
+                      <TextField
+                        sx={{
+                          height: '1rem',
+                        }}
+                        placeholder={`search`}
+                        id="filled-start-adornment"
+                        size="small"
+                        InputProps={{
+                          endAdornment: <InputAdornment sx={{ marginRight: 0 }} position="start">
+                            <IconButton
+                              size='small'
+                              aria-label={`search ${data.id}`}
+                              onClick={() => { }}
+                            >
+                              <Close sx={{ fontSize: "1rem" }} />
+                            </IconButton>
+                          </InputAdornment>
+                        }}
+                        variant="standard"
+                      />
+                    </TableCell>
+                  } else {
+                    <TableCell></TableCell>
+                  }
+                })}
+              </TableRow>
               {stableSort(filteredMobileKeyStatusList, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
                   <TableRow
                     hover
                     key={data.id}
                   >
-                    <TableCell >
-                      <Typography
-                        variant='p'
+                    <TableCell
+                      align="left"
+                      sx={{
+                        width: "8%",
+                      }}>
+                      <Chip
                         sx={{
-                          color: getColorBasedOnStatus(data.overAllStatus)
+                          width: "100%",
+                          margin: '0 2px',
+                          fontFamily: 'Gilroy',
+                          borderRadius: 0.5,
+                          height: '100%',
+                          fontSize: '0.7rem',
+                          '.MuiChip-label': {
+                            paddingLeft: 0.5,
+                            paddingRight: 0.5
+                          }
                         }}
-                      >
-                        {data.overAllStatus}
-                      </Typography>
+                        label={data.overAllStatus}
+                        color={getColorBasedOnStatus(data.overAllStatus)}
+                      />
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "9%",
+                      }}>
                       {data.externalBookingRefId}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "9%",
+                      }}>
                       {data.reservationId}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "11%",
+                      }}>
                       {data.checkInChannel}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "10%",
+                      }}>
                       {data.roomNo}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "12%",
+                      }}>
                       {getGuestName(data)}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "12%",
+                      }}>
                       {formatYYYYMMDD(data.checkInDate)}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "12%",
+                      }}>
                       {formatYYYYMMDD(data.checkOutDate)}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "6%",
+                      }}>
                       {data.noOfNights}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "6%",
+                      }}>
                       {data.mobileKeyStatus}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        width: "5%",
+                      }}>
                       <Button
                         color="primary"
                         variant="outlined"
                         sx={{
                           lineHeight: 0.5,
-
+                          padding: '0.25rem 0.5rem',
+                          minWidth: 40,
+                          borderRadius: "5px",
+                          fontFamily: 'Gilroy',
+                          fontSize: '0.7rem'
                         }}
                         onClick={() => {
                           setDetails(data)

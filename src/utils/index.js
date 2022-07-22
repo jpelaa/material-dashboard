@@ -1,9 +1,9 @@
 export const getColorBasedOnStatus = (overAllStatus) => {
     if (overAllStatus.toLowerCase() === "incomplete") {
-        return "warning.main"
+        return "warning"
     } else if (overAllStatus.toLowerCase() === "complete") {
-        return "success.main"
+        return "success"
     } else {
-        return "secondary.main"
+        return "secondary"
     }
 }
