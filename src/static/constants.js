@@ -92,12 +92,6 @@ export const MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER = [
     },
 ];
 
-export const OVERALL_STATUS = {
-    pending: 'pending',
-    complete: 'complete'
-};
-
-
 // Palettes 
 export const PALETTE_TYPES = {
     primary: 'primary',
@@ -111,4 +105,34 @@ export const PALETTE_TYPES = {
 export const PALETTE_COLOR_TYPES = {
     light: 'light',
     dark: 'dark',
+}
+
+export const OVERALL_STATUS = {
+    pending: 'pending',
+    complete: 'complete'
+};
+
+
+export const REQUESTED_STATUS_TYPES = {
+    approved: 'approved',
+    rejected: 'rejected',
+    revoked: 'revoked'
+};
+
+export const STATUS_TEXT = {
+    [REQUESTED_STATUS_TYPES.approved]: 'Approve',
+    [REQUESTED_STATUS_TYPES.rejected]: 'Reject',
+    [REQUESTED_STATUS_TYPES.revoked]: 'Revoke'
+}
+
+export const REQUESTED_STATUS_COLORS_BY_KEY = {
+    [REQUESTED_STATUS_TYPES.approved]: PALETTE_TYPES.success,
+    [REQUESTED_STATUS_TYPES.rejected]: PALETTE_TYPES.error,
+    [REQUESTED_STATUS_TYPES.revoked]: PALETTE_TYPES.info
+}
+
+export const TRANSITION_LIST_BY_KEY = {
+    [REQUESTED_STATUS_TYPES.approved]: [REQUESTED_STATUS_TYPES.revoked],
+    [REQUESTED_STATUS_TYPES.rejected]: [REQUESTED_STATUS_TYPES.approved],
+    [REQUESTED_STATUS_TYPES.revoked]: [REQUESTED_STATUS_TYPES.approved],
 }

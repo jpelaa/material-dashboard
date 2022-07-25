@@ -224,25 +224,25 @@ export const theme = createTheme({
     success: {
       main: '#14B8A6',
       light: '#C8F9F3',
-      dark: '#0E8074',
+      dark: '#0C6E63',
       contrastText: WHITE_COLOR
     },
     info: {
       main: '#2196F3',
-      light: '#64B6F7',
-      dark: '#0B79D0',
+      light: '#D3EAFD',
+      dark: '#08599B',
       contrastText: WHITE_COLOR
     },
     warning: {
       main: '#FFB020',
-      light: '#FFBF4C',
-      dark: '#B27B16',
+      light: '#FFEFD1',
+      dark: '#AD7100',
       contrastText: WHITE_COLOR
     },
     error: {
       main: '#D14343',
-      light: '#DA6868',
-      dark: '#922E2E',
+      light: '#F6DADA',
+      dark: '#832020',
       contrastText: WHITE_COLOR
     },
     text: {

@@ -3,8 +3,9 @@ import { CheckCircle } from "@mui/icons-material";
 import { Box, Button, Card, CardActions, CardContent, FormControlLabel, IconButton, Link, Paper, Popover, Radio, RadioGroup, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, Typography, useRadioGroup } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from "src/static/constants";
+import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER, REQUESTED_STATUS_COLORS_BY_KEY, STATUS_TEXT, TRANSITION_LIST_BY_KEY } from "src/static/constants";
 import { formatYYYYMMDDWith12hoursAMPM } from "src/utils/date";
+import { useTheme } from '@mui/material/styles';
 
 
 const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
@@ -40,12 +41,26 @@ const SummaryTable = ({ rows = [] }) => {
     const [selectedId, setSelectedId] = useState('');
     const [shouldShowChange, setShowChange] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [display, setDisplay] = useState(false);
+
+    const [transitionList, setTransitionList] = useState([])
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
+    const theme = useTheme();
+
+
     const open = Boolean(anchorEl);
+
+    const handleReset = () => {
+
+    };
+
+    const handleSubmitStatus = () => {
+
+    }
 
     const bull = (
         <Box
@@ -108,6 +123,7 @@ const SummaryTable = ({ rows = [] }) => {
                                             }} onClick={(event) => {
                                                 setShowChange(true);
                                                 setSelectedId(row.id);
+                                                setTransitionList(TRANSITION_LIST_BY_KEY[row.requestStatus.toLowerCase()])
                                                 setAnchorEl(event.currentTarget);
                                             }}>(change)</Link>
                                         </Typography>
@@ -121,33 +137,55 @@ const SummaryTable = ({ rows = [] }) => {
                                                     horizontal: 'left',
                                                 }}
                                             >
-                                                <Box sx={{ minWidth: 275, p: 1, backgroundColor: 'background.default' }}>
+                                                <Box sx={{ minWidth: 275, p: 1, backgroundColor: 'neutral.100' }}>
                                                     <Typography variant="h5" component="div">
                                                         Change Status
                                                     </Typography>
-                                                    <Card >
+                                                    <Card sx={{ mx: 1 }}>
                                                         <CardContent>
-                                                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                            <Typography sx={{ fontSize: '1rem' }} color="text.secondary" gutterBottom>
                                                                 Current Status
                                                             </Typography>
                                                             <Box sx={{ textAlign: 'center' }}>
-                                                                <Typography sx={{ width: '50%', px: 0.75, py: 0.5, color: 'success.main', backgroundColor: 'success.light' }} >
+                                                                <Typography sx={{
+                                                                    width: '50%',
+                                                                    px: 0.75,
+                                                                    py: 0.5,
+                                                                    color: `${REQUESTED_STATUS_COLORS_BY_KEY[row.requestStatus.toLowerCase()]}.main`,
+                                                                    backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[row.requestStatus.toLowerCase()]}.light`
+                                                                }} >
                                                                     {row.requestStatus}
                                                                 </Typography>
                                                             </Box>
                                                         </CardContent>
                                                     </Card>
-                                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 0.5 }}>
-                                                        <Box>
-                                                            Revoke
+                                                    {transitionList.map((data) => {
+                                                        return <Box
+                                                            onMouseLeave={() => { setDisplay(false) }} onMouseEnter={() => { setDisplay(true) }}
+                                                            key={data} sx={{
+                                                                display: 'flex',
+                                                                justifyContent: 'space-around',
+                                                                cursor: 'pointer',
+                                                                alignItems: 'center',
+                                                                px: 0.5,
+                                                                py: 1,
+                                                                m: 1,
+                                                                '&:hover': {
+                                                                    color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main`,
+                                                                    backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.light`,
+                                                                }
+                                                            }}>
+                                                            <Box>
+                                                                {STATUS_TEXT[data]}
+                                                            </Box>
+                                                            <IconButton sx={{ border: `1px solid ${theme.palette.neutral[500]}`, padding: 0 }} size="small">
+                                                                <CheckCircle sx={{ visibility: display ? 'inherit' : 'hidden', color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main` }} />
+                                                            </IconButton>
                                                         </Box>
-                                                        <IconButton>
-                                                            <CheckCircle />
-                                                        </IconButton>
-                                                    </Box>
+                                                    })}
                                                     <Box sx={{ width: "100%", px: 0.5 }}>
-                                                        <Button sx={{ width: "50%" }}>Cancel</Button>
-                                                        <Button sx={{ width: "50%" }} variant="contained">Done</Button>
+                                                        <Button sx={{ width: "50%" }} onClick={handleReset}>Cancel</Button>
+                                                        <Button sx={{ width: "50%" }} onClick={handleSubmitStatus} variant="contained">Done</Button>
                                                     </Box>
                                                 </Box>
                                             </Popover>
