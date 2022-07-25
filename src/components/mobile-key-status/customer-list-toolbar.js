@@ -64,6 +64,7 @@ export const CustomerListToolbar = (props) => {
           }}
           fullWidth
           size='small'
+          disabled={enableFilter}
           value={commonFilterValue}
           onChange={handleCommonFilterValueChange}
           InputProps={{

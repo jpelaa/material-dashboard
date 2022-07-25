@@ -223,7 +223,7 @@ export const theme = createTheme({
     },
     success: {
       main: '#14B8A6',
-      light: '#43C6B7',
+      light: '#C8F9F3',
       dark: '#0E8074',
       contrastText: WHITE_COLOR
     },

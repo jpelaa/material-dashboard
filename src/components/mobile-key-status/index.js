@@ -17,6 +17,8 @@ const MobileKeyStatus = () => {
         setEnableFilter(event.target.checked);
         if (event.target.checked === false) {
             setFilters({})
+        } else {
+            setCommonFilterValue('');
         }
     }
 

@@ -34,7 +34,6 @@ const filterAll = ({ arr, filters, commonFilterValue }) => {
   return arr.filter((data) => {
     const filterKeyArr = Object.keys(filters);
     if (commonFilterValue.length > 0 || filterKeyArr.length > 0) {
-      let boolean = []
       if (commonFilterValue.length > 0) {
         const bool = []
         MOBILE_KEY_STATUS_TABLE_HEADER.forEach(({ id }) => {
@@ -52,7 +51,7 @@ const filterAll = ({ arr, filters, commonFilterValue }) => {
             }
           }
         })
-        boolean = [...boolean, ...bool];
+        return bool.some(Boolean)
       }
       if (filterKeyArr.length > 0) {
         const bool = []
@@ -71,9 +70,8 @@ const filterAll = ({ arr, filters, commonFilterValue }) => {
             }
           }
         })
-        boolean = [...boolean, ...bool];
+        return bool.every(Boolean)
       }
-      return boolean.some(Boolean);
     } else {
       return true;
     }
