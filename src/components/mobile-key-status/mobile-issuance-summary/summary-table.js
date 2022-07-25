@@ -62,7 +62,6 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 	const theme = useTheme();
 
 	const handleOpen = (event) => {
-		true;
 		setTransitionList(TRANSITION_LIST_BY_KEY[status.toLowerCase()]);
 		setAnchorEl(event.currentTarget);
 	};
@@ -88,7 +87,6 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 
 	return (
 		<>
-			{' '}
 			<Typography variant='body2' sx={{ fontFamily: 'Gilroy' }}>
 				{status}
 				<Link
