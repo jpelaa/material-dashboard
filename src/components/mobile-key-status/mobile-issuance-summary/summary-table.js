@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER, REQUESTED_STATUS_COLORS_BY_KEY, STATUS_TEXT, TRANSITION_LIST_BY_KEY } from "src/static/constants";
 import { formatYYYYMMDDWith12hoursAMPM } from "src/utils/date";
 import { useTheme } from '@mui/material/styles';
+import { updateStatusById } from "src/utils/api/summary";
 
 
 const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
@@ -44,6 +45,7 @@ const SummaryTable = ({ rows = [] }) => {
     const [display, setDisplay] = useState(false);
 
     const [transitionList, setTransitionList] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('');
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -55,11 +57,23 @@ const SummaryTable = ({ rows = [] }) => {
     const open = Boolean(anchorEl);
 
     const handleReset = () => {
-
+        setShowChange(false);
+        setAnchorEl(null);
+        setSelectedStatus('')
     };
 
-    const handleSubmitStatus = () => {
-
+    const handleSubmitStatus = async () => {
+        try {
+            const req = {
+                selectedStatus,
+                selectedId
+            }
+            setLoadingStatus(true)
+            await updateStatusById(req)
+            setLoadingStatus(false)
+        } catch (err) {
+            setLoadingStatus(false)
+        }
     }
 
     const bull = (
@@ -70,8 +84,6 @@ const SummaryTable = ({ rows = [] }) => {
             •
         </Box>
     );
-
-
 
     return (
         <Paper elevation={12} variant="outlined">
@@ -161,6 +173,13 @@ const SummaryTable = ({ rows = [] }) => {
                                                     </Card>
                                                     {transitionList.map((data) => {
                                                         return <Box
+                                                            onClick={() => {
+                                                                if (data === selectedStatus) {
+                                                                    setSelectedStatus('')
+                                                                } else {
+                                                                    setSelectedStatus(data)
+                                                                }
+                                                            }}
                                                             onMouseLeave={() => { setDisplay(false) }} onMouseEnter={() => { setDisplay(true) }}
                                                             key={data} sx={{
                                                                 display: 'flex',
@@ -173,13 +192,22 @@ const SummaryTable = ({ rows = [] }) => {
                                                                 '&:hover': {
                                                                     color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main`,
                                                                     backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.light`,
-                                                                }
+                                                                },
+                                                                ...(selectedStatus ? {
+                                                                    color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main`,
+                                                                    backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.light`,
+                                                                } : {})
                                                             }}>
                                                             <Box>
                                                                 {STATUS_TEXT[data]}
                                                             </Box>
                                                             <IconButton sx={{ border: `1px solid ${theme.palette.neutral[500]}`, padding: 0 }} size="small">
-                                                                <CheckCircle sx={{ visibility: display ? 'inherit' : 'hidden', color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main` }} />
+                                                                <CheckCircle sx={{
+                                                                    visibility: display || selectedStatus ? 'inherit' : 'hidden',
+                                                                    color: `${REQUESTED_STATUS_COLORS_BY_KEY[data]}.main`,
+                                                                    '&:hover': {
+                                                                    }
+                                                                }} />
                                                             </IconButton>
                                                         </Box>
                                                     })}
