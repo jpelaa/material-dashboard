@@ -1,35 +1,22 @@
-import { useState } from 'react';
+import { useTheme } from '@emotion/react';
+import { CheckCircle } from '@mui/icons-material';
 import {
-	Box,
 	Button,
 	Card,
 	CardContent,
 	IconButton,
 	Link,
-	Paper,
 	Popover,
-	Stack,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	TextareaAutosize,
 	Typography,
 } from '@mui/material';
-import { CheckCircle } from '@mui/icons-material';
+import { Box } from '@mui/system';
+import { useState } from 'react';
 import {
-	MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER,
 	REQUESTED_STATUS_COLORS_BY_KEY,
-	REQUESTED_STATUS_TYPES,
 	STATUS_TEXT,
 	TRANSITION_LIST_BY_KEY,
 } from 'src/static/constants';
-import { formatYYYYMMDDWith12hoursAMPM } from 'src/utils/date';
-import { useTheme } from '@mui/material/styles';
-import { updateStatusById } from 'src/utils/api/summary';
-import { API_STATUS } from 'src/static/api';
+import { FONT_FAMILIES } from 'src/static/styles';
 
 const checkBoxDesign = ({ selectedStatus, currentStatus }) => ({
 	display: 'flex',
@@ -87,7 +74,7 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 
 	return (
 		<>
-			<Typography variant='body2' sx={{ fontFamily: 'Gilroy' }}>
+			<Typography variant='body2' sx={{ fontFamily: FONT_FAMILIES.gilroy }}>
 				{status}
 				<Link
 					sx={{
@@ -187,155 +174,4 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 	);
 };
 
-const AssignStatus = ({ handleSubmitStatus, id }) => {
-	return (
-		<Stack
-			direction='row'
-			justifyContent='center'
-			spacing={1}
-			alignItems='center'
-		>
-			<Button
-				variant='contained'
-				onClick={() =>
-					handleSubmitStatus({ status: REQUESTED_STATUS_TYPES.approved, id })
-				}
-				color='success'
-				size='small'
-			>
-        Approve
-			</Button>
-			<Button
-				variant='contained'
-				onClick={() =>
-					handleSubmitStatus({ status: REQUESTED_STATUS_TYPES.approved, id })
-				}
-				color='error'
-				size='small'
-			>
-        Reject
-			</Button>
-		</Stack>
-	);
-};
-
-const SummaryTable = ({ rows = [] }) => {
-	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.initial);
-
-	const handleSubmitStatus = async ({ status, id }) => {
-		try {
-			const req = {
-				status,
-				id,
-			};
-			setLoadingStatus(API_STATUS.loading);
-			await updateStatusById(req);
-			setLoadingStatus(API_STATUS.done);
-		} catch (err) {
-			setLoadingStatus(API_STATUS.failed);
-		}
-	};
-
-	if (loadingStatus === API_STATUS.loading) {
-		return 'loading...';
-	}
-	return (
-		<Paper elevation={12} variant='outlined'>
-			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-					<TableHead>
-						<TableRow>
-							{MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER.map(({ label, id }) => {
-								return <TableCell key={id}>{label}</TableCell>;
-							})}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{rows.map((row, index) => (
-							<TableRow key={row.id}>
-								<TableCell
-									sx={{
-										width: '4%',
-									}}
-								>
-									{index + 1}
-								</TableCell>
-								<TableCell
-									align='right'
-									sx={{
-										width: '16%',
-									}}
-								>
-									{row.email}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '7%',
-									}}
-								>
-									{row.guestType}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '14%',
-									}}
-								>
-									{formatYYYYMMDDWith12hoursAMPM(row.requestedOn)}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '12%',
-									}}
-								>
-									{!row.requestStatus ? (
-										<AssignStatus
-											id={row.id}
-											handleSubmitStatus={handleSubmitStatus}
-										/>
-									) : (
-										<RequestedStatusCol
-											status={row.requestStatus}
-											id={row.id}
-											handleSubmitStatus={handleSubmitStatus}
-										/>
-									)}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '14%',
-									}}
-								>
-									{formatYYYYMMDDWith12hoursAMPM(row.responseDateTime)}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '9%',
-									}}
-								>
-									{row.responseBy}
-								</TableCell>
-								<TableCell
-									sx={{
-										width: '24%',
-									}}
-								>
-									<TextareaAutosize
-										aria-label='comment'
-										placeholder='comments...'
-										value={row.comment}
-										style={{ width: 200 }}
-										onBlur={() => {
-											console.log('Out focus save comments ');
-										}}
-									/>
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</Paper>
-	);
-};
-
-export default SummaryTable;
+export default RequestedStatusCol;
