@@ -207,12 +207,15 @@ export const theme = createTheme({
 			selected: 'rgba(55, 65, 81, 0.08)',
 			disabledBackground: 'rgba(55, 65, 81, 0.12)',
 			disabled: 'rgba(55, 65, 81, 0.26)',
+			borderColor: '#2D3748',
 		},
 		background: {
 			default: '#EEEEEE',
 			paper: WHITE_COLOR,
+			box: 'rgba(255, 255, 255, 0.04)',
+			button: 'rgba(255,255,255, 0.08)',
 		},
-		divider: '#E6E8F0',
+		divider: '#2D3748',
 		primary: {
 			main: PRIMARY_COLOR,
 		},
@@ -284,67 +287,5 @@ export const theme = createTheme({
 			fontWeight: 600,
 		},
 		fontFamily: 'TfArrow',
-		// body1: {
-		//   fontSize: '1rem',
-		//   fontWeight: 400,
-		//   lineHeight: 1.5
-		// },
-		// body2: {
-		//   fontSize: '0.875rem',
-		//   fontWeight: 400,
-		//   lineHeight: 1.57
-		// },
-		// subtitle1: {
-		//   fontSize: '1rem',
-		//   fontWeight: 500,
-		//   lineHeight: 1.75
-		// },
-		// subtitle2: {
-		//   fontSize: '0.875rem',
-		//   fontWeight: 500,
-		//   lineHeight: 1.57
-		// },
-		// overline: {
-		//   fontSize: '0.75rem',
-		//   fontWeight: 600,
-		//   letterSpacing: '0.5px',
-		//   lineHeight: 2.5,
-		//   textTransform: 'uppercase'
-		// },
-		// caption: {
-		//   fontSize: '0.75rem',
-		//   fontWeight: 400,
-		//   lineHeight: 1.66
-		// },
-		// h1: {
-		//   fontWeight: 700,
-		//   fontSize: '3.5rem',
-		//   lineHeight: 1.375
-		// },
-		// h2: {
-		//   fontWeight: 700,
-		//   fontSize: '3rem',
-		//   lineHeight: 1.375
-		// },
-		// h3: {
-		//   fontWeight: 700,
-		//   fontSize: '2.25rem',
-		//   lineHeight: 1.375
-		// },
-		// h4: {
-		//   fontWeight: 700,
-		//   fontSize: '2rem',
-		//   lineHeight: 1.375
-		// },
-		// h5: {
-		//   fontWeight: 600,
-		//   fontSize: '1.5rem',
-		//   lineHeight: 1.375
-		// },
-		// h6: {
-		//   fontWeight: 600,
-		//   fontSize: '1.125rem',
-		//   lineHeight: 1.375
-		// }
 	},
 });

@@ -6,7 +6,7 @@ import {
 	TableRow,
 	TextField,
 } from '@mui/material';
-import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
+import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/mobile-key-status';
 
 const FilterRow = ({ filters, handleIndividualFilterChange }) => {
 	return (

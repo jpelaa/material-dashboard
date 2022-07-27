@@ -1,4 +1,4 @@
-import { MOBILE_KEY_STATUS_BY_ID } from 'src/static/constants';
+import { MOBILE_KEY_STATUS_BY_ID } from 'src/static/mobile-key-status';
 import { formatYYYYMMDD } from './date';
 
 export const getGuestName = ({ salutation, firstName, lastName }) =>

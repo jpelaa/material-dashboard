@@ -4,6 +4,27 @@ export const FONT_FAMILIES = {
 	gilroy: 'Gilroy',
 };
 
+// Palettes
+export const PALETTE_TYPES = {
+	primary: 'primary',
+	secondary: 'secondary',
+	success: 'success',
+	warning: 'warning',
+	error: 'error',
+	info: 'info',
+};
+
+export const PALETTE_COLOR_TYPES = {
+	light: 'light',
+	dark: 'dark',
+};
+
+export const CENTER_STYLES = {
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+};
+
 export const OVER_ALL_STATUS_COL_STYLES = {
 	width: '100%',
 	margin: '0 2px',

@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { visuallyHidden } from '@mui/utils';
-import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/constants';
+import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/mobile-key-status';
 import { FONT_FAMILIES } from 'src/static/styles';
 
 function EnhancedTableHead(props) {

@@ -15,7 +15,7 @@ import {
 	REQUESTED_STATUS_COLORS_BY_KEY,
 	STATUS_TEXT,
 	TRANSITION_LIST_BY_KEY,
-} from 'src/static/constants';
+} from 'src/static/mobile-key-status';
 import { FONT_FAMILIES } from 'src/static/styles';
 
 const checkBoxDesign = ({ selectedStatus, currentStatus }) => ({

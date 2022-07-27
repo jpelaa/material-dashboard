@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material';
-import { REQUESTED_STATUS_TYPES } from 'src/static/constants';
+import { REQUESTED_STATUS_TYPES } from 'src/static/mobile-key-status';
 
 const AssignStatus = ({ handleSubmitStatus, id }) => {
 	return (

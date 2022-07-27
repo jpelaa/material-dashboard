@@ -9,12 +9,12 @@ import {
 	TableRow,
 	TextareaAutosize,
 } from '@mui/material';
-import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from 'src/static/constants';
 import { formatYYYYMMDDWith12hoursAMPM } from 'src/utils/date';
 import { updateStatusById } from 'src/utils/api/summary';
 import { API_STATUS } from 'src/static/api';
 import AssignStatus from './assign-status';
 import RequestedStatusCol from './requested-status-col';
+import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from 'src/static/mobile-key-status';
 
 const SummaryTable = ({ rows = [] }) => {
 	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.initial);
