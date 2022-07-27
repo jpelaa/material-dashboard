@@ -1,5 +1,5 @@
-export const updateStatusById = ({ }) => {
-    return new Promise((resolve, reject) => {
-        resolve("success")
-    })
-}
+export const updateStatusById = () => {
+	return new Promise((resolve) => {
+		resolve('success');
+	});
+};
