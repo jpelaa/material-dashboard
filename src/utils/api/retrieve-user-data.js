@@ -5,7 +5,7 @@ import { getAuthorizationHeaderValue, getHeaders } from './utils';
 const getBody = () => {
 	const date = new Date();
 	return {
-		currentData: formatDDMMMYYYY(date),
+		currentDate: formatDDMMMYYYY(date),
 	};
 };
 

@@ -28,11 +28,11 @@ export default MobileKeyStatus;
 
 export async function getServerSideProps() {
 	const token = await createToken();
-	const mobileKeyStatus = retrieveUserData({ token });
-
+	const mobileKeyStatus = await retrieveUserData({ token });
+	console.log(mobileKeyStatus, ' mobileKeyStatus');
 	return {
 		props: {
-			mobileKeyStatus,
+			mobileKeyStatus: [],
 		},
 	};
 }
