@@ -6,7 +6,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { styled, useTheme } from '@mui/styles';
 
-import { NavItem } from './nav-item';
+import NavItem from './nav-item';
 import { CENTER_STYLES, DRAWER_WIDTH } from 'src/static/styles';
 import Image from 'next/image';
 import logo from 'public/static/images/logo.png';

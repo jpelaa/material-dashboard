@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import MobileKeyStatusComp from '../components/mobile-key-status';
-import { DashboardLayout } from '../components/dashboard-layout';
+import MobileKeyStatusComp from 'src/components/mobile-key-status';
 import createToken from 'src/utils/api/create-token';
 import retrieveUserData from 'src/utils/api/retrieve-user-data';
+import DashboardLayout from 'src/components/layout';
 
 const MobileKeyStatus = ({ mobileKeyStatus }) => (
 	<>
