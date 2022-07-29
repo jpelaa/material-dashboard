@@ -49,7 +49,7 @@ const SummaryTable = ({ rows = [] }) => {
 					</TableHead>
 					<TableBody>
 						{rows.map((row, index) => (
-							<TableRow key={row.id}>
+							<TableRow key={row.emailId}>
 								<TableCell
 									sx={{
 										width: '4%',
@@ -63,7 +63,7 @@ const SummaryTable = ({ rows = [] }) => {
 										width: '16%',
 									}}
 								>
-									{row.email}
+									{row.emailId}
 								</TableCell>
 								<TableCell
 									sx={{
@@ -84,15 +84,15 @@ const SummaryTable = ({ rows = [] }) => {
 										width: '12%',
 									}}
 								>
-									{!row.requestStatus ? (
+									{!row.approvalStatus ? (
 										<AssignStatus
-											id={row.id}
+											id={row.emailId}
 											handleSubmitStatus={handleSubmitStatus}
 										/>
 									) : (
 										<RequestedStatusCol
-											status={row.requestStatus}
-											id={row.id}
+											status={row.approvalStatus}
+											id={row.emailId}
 											handleSubmitStatus={handleSubmitStatus}
 										/>
 									)}
@@ -102,14 +102,14 @@ const SummaryTable = ({ rows = [] }) => {
 										width: '14%',
 									}}
 								>
-									{formatYYYYMMDDWith12hoursAMPM(row.responseDateTime)}
+									{formatYYYYMMDDWith12hoursAMPM(row.approvedTime)}
 								</TableCell>
 								<TableCell
 									sx={{
 										width: '9%',
 									}}
 								>
-									{row.responseBy}
+									{row.approvedBy}
 								</TableCell>
 								<TableCell
 									sx={{

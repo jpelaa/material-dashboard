@@ -7,13 +7,13 @@ import {
 	Typography,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { mobileKeyIssuanceSummary } from 'src/__mocks__/mobile_key_issuance_summary';
 import MobileKeyDetails from './mobile-key-details';
 import SummaryTable from './summary-table';
 
 const MobileIssuanceSummary = ({
-	roomNo,
+	roomNumber,
 	details,
+	userDetails,
 	open,
 	handleClose,
 	scroll = 'paper',
@@ -30,7 +30,7 @@ const MobileIssuanceSummary = ({
 			<AppBar sx={{ position: 'relative', backgroundColor: 'secondary.main' }}>
 				<Toolbar>
 					<Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
-            Mobile Key Issuance Summary (Room Number : {roomNo})
+            Mobile Key Issuance Summary (Room Number : {roomNumber})
 					</Typography>
 					<IconButton
 						edge='start'
@@ -44,7 +44,7 @@ const MobileIssuanceSummary = ({
 			</AppBar>
 			<DialogContent dividers={scroll === 'paper'}>
 				<MobileKeyDetails details={details} />
-				<SummaryTable rows={mobileKeyIssuanceSummary} />
+				<SummaryTable rows={userDetails} />
 			</DialogContent>
 		</Dialog>
 	);

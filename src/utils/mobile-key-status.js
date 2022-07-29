@@ -1,21 +1,55 @@
 import { MOBILE_KEY_STATUS_BY_ID } from 'src/static/mobile-key-status';
 import { formatYYYYMMDD } from './date';
+import { OVERALL_STATUS } from 'src/static/mobile-key-status';
+import { PALETTE_TYPES } from 'src/static/styles';
 
-export const getGuestName = ({ salutation, firstName, lastName }) =>
-	`${salutation}.${firstName} ${lastName}`;
+const getColorBasedOnStatus = (overAllStatus) => {
+	const overAllStatusLowerCased = overAllStatus.toLowerCase();
+	if (overAllStatusLowerCased === OVERALL_STATUS.pending) {
+		return PALETTE_TYPES.warning;
+	} else if (overAllStatusLowerCased === OVERALL_STATUS.complete) {
+		return PALETTE_TYPES.success;
+	} else {
+		return PALETTE_TYPES.secondary;
+	}
+};
+
+const getLabel = ({
+	mobileKeyRequested,
+	mobileKeyIssued,
+	mobileKeyRejected,
+}) => {
+	return mobileKeyRequested === mobileKeyIssued + mobileKeyRejected
+		? OVERALL_STATUS.complete
+		: OVERALL_STATUS.pending;
+};
+
+export const getLabelAndColorBasedData = ({
+	mobileKeyRequested,
+	mobileKeyIssued,
+	mobileKeyRejected,
+}) => {
+	const label = getLabel({
+		mobileKeyRequested,
+		mobileKeyIssued,
+		mobileKeyRejected,
+	});
+	const color = getColorBasedOnStatus(label);
+	return {
+		label,
+		color,
+	};
+};
 
 export const filterCol = ({ arr, filters, data }) => {
 	const bool = [];
 	arr.forEach((filterKey) => {
 		if (filters[filterKey]) {
 			const filterInLowerCase = filters[filterKey].toLowerCase().trim();
-			if (filterKey === MOBILE_KEY_STATUS_BY_ID.guestName) {
-				const guestNameInLowerCase = getGuestName(data).toLowerCase().trim();
-				bool.push(guestNameInLowerCase.indexOf(filterInLowerCase) > -1);
-			} else if (
+			if (
 				[
 					MOBILE_KEY_STATUS_BY_ID.checkInDate,
-					MOBILE_KEY_STATUS_BY_ID.checkOutDate,
+					MOBILE_KEY_STATUS_BY_ID.checkOutdate,
 				].includes(filterKey)
 			) {
 				const dateFormatted = formatYYYYMMDD(data[filterKey]);

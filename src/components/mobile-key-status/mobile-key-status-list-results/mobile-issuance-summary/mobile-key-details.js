@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { format } from 'date-fns';
+import { formatddMMyyyy } from 'src/utils/date';
 import { FONT_FAMILIES } from 'src/static/styles';
 
 const Header = ({ children }) => {
@@ -61,16 +61,16 @@ const MobileKeyDetails = ({ details }) => {
 			</Grid>
 			<Grid container spacing={2}>
 				<Grid item xs>
-					<Content>{details.externalBookingRefId}</Content>
+					<Content>{details.bookingId}</Content>
 				</Grid>
 				<Grid item xs>
 					<Content>{details.reservationId}</Content>
 				</Grid>
 				<Grid item xs>
-					<Content>{format(details.checkInDate, 'dd/MM/yyyy')}</Content>
+					<Content>{formatddMMyyyy(details.checkInDate)}</Content>
 				</Grid>
 				<Grid item xs>
-					<Content>{format(details.checkOutDate, 'dd/MM/yyyy')}</Content>
+					<Content>{formatddMMyyyy(details.checkOutdate)}</Content>
 				</Grid>
 				<Grid item xs>
 					<Content>{details.noOfNights}</Content>

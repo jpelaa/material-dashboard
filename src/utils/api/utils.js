@@ -7,7 +7,13 @@ export const getHeaders = () => {
 	};
 };
 
-export const getAuthorizationHeaderValue = (token) => {
+export const getBasicAuthorizationHeader = () => {
+	return {
+		Authorization: `Basic ${process.env.BASIC_TOKEN}`,
+	};
+};
+
+export const getBearerAuthorizationHeader = (token) => {
 	return {
 		Authorization: `Bearer ${token}`,
 	};

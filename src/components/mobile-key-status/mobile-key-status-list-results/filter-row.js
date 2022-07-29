@@ -10,7 +10,7 @@ import { MOBILE_KEY_STATUS_TABLE_HEADER } from 'src/static/mobile-key-status';
 
 const FilterRow = ({ filters, handleIndividualFilterChange }) => {
 	return (
-		<TableRow>
+		<TableRow key='filter-header'>
 			{MOBILE_KEY_STATUS_TABLE_HEADER.map((data) => {
 				if (data.filterEnabled) {
 					return (

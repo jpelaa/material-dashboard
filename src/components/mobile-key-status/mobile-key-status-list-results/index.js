@@ -13,12 +13,11 @@ import {
 } from '@mui/material';
 import MobileIssuanceSummary from './mobile-issuance-summary';
 import { formatYYYYMMDD } from 'src/utils/date';
-import { getColorBasedOnStatus } from 'src/utils';
 import { FONT_FAMILIES, OVER_ALL_STATUS_COL_STYLES } from 'src/static/styles';
 import {
 	filterAll,
 	getComparator,
-	getGuestName,
+	getLabelAndColorBasedData,
 	stableSort,
 } from 'src/utils/mobile-key-status';
 import EnhancedTableHead from './enhanced-table-head';
@@ -82,7 +81,7 @@ const MobileKeyStatusListResults = ({
 							)
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((data) => (
-									<TableRow hover key={data.id}>
+									<TableRow hover key={data.bookingId}>
 										<TableCell
 											align='left'
 											sx={{
@@ -92,8 +91,7 @@ const MobileKeyStatusListResults = ({
 										>
 											<Chip
 												sx={OVER_ALL_STATUS_COL_STYLES}
-												label={data.overAllStatus}
-												color={getColorBasedOnStatus(data.overAllStatus)}
+												{...getLabelAndColorBasedData(data)}
 											/>
 										</TableCell>
 										<TableCell
@@ -103,7 +101,7 @@ const MobileKeyStatusListResults = ({
 												minWidth: '110px',
 											}}
 										>
-											{data.externalBookingRefId}
+											{data.bookingId}
 										</TableCell>
 										<TableCell
 											align='center'
@@ -130,7 +128,7 @@ const MobileKeyStatusListResults = ({
 												minWidth: '110px',
 											}}
 										>
-											{data.roomNo}
+											{data.roomNumber}
 										</TableCell>
 										<TableCell
 											align='center'
@@ -139,7 +137,7 @@ const MobileKeyStatusListResults = ({
 												minWidth: '110px',
 											}}
 										>
-											{getGuestName(data)}
+											{data.guestName}
 										</TableCell>
 										<TableCell
 											align='center'
@@ -157,7 +155,7 @@ const MobileKeyStatusListResults = ({
 												minWidth: '110px',
 											}}
 										>
-											{formatYYYYMMDD(data.checkOutDate)}
+											{formatYYYYMMDD(data.checkOutdate)}
 										</TableCell>
 										<TableCell
 											align='center'
@@ -174,7 +172,7 @@ const MobileKeyStatusListResults = ({
 												width: '6%',
 											}}
 										>
-											{data.mobileKeyStatus}
+											{`${data.mobileKeyIssued}/${data.mobileKeyRequested}`}
 										</TableCell>
 										<TableCell
 											align='center'
@@ -218,12 +216,13 @@ const MobileKeyStatusListResults = ({
 			{showPopup && details && (
 				<MobileIssuanceSummary
 					open={showPopup}
-					roomNo={details.roomNo}
+					roomNumber={details.roomNumber}
 					details={details}
 					handleClose={() => {
 						setShowPopup(false);
 						setDetails(null);
 					}}
+					userDetails={details.userDetails}
 				/>
 			)}
 		</Box>

@@ -2,13 +2,13 @@ import { PALETTE_TYPES } from './styles';
 
 export const MOBILE_KEY_STATUS_BY_ID = {
 	overAllStatus: 'overAllStatus',
-	externalBookingRefId: 'externalBookingRefId',
+	bookingId: 'bookingId',
 	reservationId: 'reservationId',
 	checkInChannel: 'checkInChannel',
-	roomNo: 'roomNo',
+	roomNumber: 'roomNumber',
 	guestName: 'guestName',
 	checkInDate: 'checkInDate',
-	checkOutDate: 'checkOutDate',
+	checkOutdate: 'checkOutdate',
 	noOfNights: 'noOfNights',
 };
 
@@ -19,7 +19,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
 		filterEnabled: true,
 	},
 	{
-		id: 'externalBookingRefId',
+		id: 'bookingId',
 		label: 'External Booking Ref.',
 		filterEnabled: true,
 	},
@@ -34,7 +34,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
 		filterEnabled: true,
 	},
 	{
-		id: 'roomNo',
+		id: 'roomNumber',
 		label: 'Room Number',
 		filterEnabled: true,
 	},
@@ -49,7 +49,7 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
 		filterEnabled: true,
 	},
 	{
-		id: 'checkOutDate',
+		id: 'checkOutdate',
 		label: 'Check-out Date',
 		filterEnabled: true,
 	},

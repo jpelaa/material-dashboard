@@ -68,7 +68,7 @@ function EnhancedTableHead(props) {
 
 	return (
 		<TableHead>
-			<TableRow>
+			<TableRow key='header'>
 				{MOBILE_KEY_STATUS_TABLE_HEADER.map((headCell) => (
 					<TableCell
 						align='center'

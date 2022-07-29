@@ -1,10 +1,9 @@
 import { Box, Card, CardContent, Container } from '@mui/material';
 import { useState } from 'react';
-import { mobileKeyStatus } from 'src/__mocks__/mobile_key_status';
 import { CustomerListToolbar } from './customer-list-toolbar';
 import MobileKeyStatusListResults from './mobile-key-status-list-results';
 
-const MobileKeyStatus = () => {
+const MobileKeyStatus = ({ mobileKeyStatus }) => {
 	const [enableFilter, setEnableFilter] = useState(false);
 
 	const [commonFilterValue, setCommonFilterValue] = useState('');

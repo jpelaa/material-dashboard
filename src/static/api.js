@@ -1,5 +1,5 @@
 export const API_ROUTES = {
-	token: '/jumeirah/oauth/v1/token',
+	token: '/authentication/token',
 	retrieveUserData: '/pushnotification/1.0/push-notification/retrive-userData',
 };
 
