@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 // components
 import MenuPopover from './menu-popover';
-import { signOut } from 'next-auth/react';
 
 export default function AccountPopover() {
 	const anchorRef = useRef(null);
@@ -72,7 +71,7 @@ export default function AccountPopover() {
 				</Box>
 
 				<Divider sx={{ borderStyle: 'dashed' }} />
-				<MenuItem onClick={signOut} to='/api/auth/signout' sx={{ m: 1 }}>
+				<MenuItem onClick={() => {}} to='/api/auth/signout' sx={{ m: 1 }}>
           Logout
 				</MenuItem>
 			</MenuPopover>
