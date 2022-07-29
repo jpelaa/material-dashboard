@@ -9,7 +9,7 @@ import { styled, useTheme } from '@mui/styles';
 import { NavItem } from './nav-item';
 import { CENTER_STYLES, DRAWER_WIDTH } from 'src/static/styles';
 import Image from 'next/image';
-import logo from '../../public/static/images/logo.png';
+import logo from 'public/static/images/logo.png';
 import { MobileFriendly } from '@mui/icons-material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -28,7 +28,7 @@ const items = [
 	},
 ];
 
-export const DashboardSidebar = (props) => {
+const DashboardSidebar = (props) => {
 	const { open, onClose } = props;
 	const router = useRouter();
 	const theme = useTheme();
@@ -132,3 +132,5 @@ DashboardSidebar.propTypes = {
 	onClose: PropTypes.func,
 	open: PropTypes.bool,
 };
+
+export default DashboardSidebar;

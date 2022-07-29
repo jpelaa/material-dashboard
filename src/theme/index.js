@@ -198,7 +198,7 @@ export const theme = createTheme({
 			600: '#7f7f7f',
 			700: '#545454',
 			800: '#373737',
-			900: '#202020',
+			900: '#1e1e1e',
 		},
 		action: {
 			active: '#6B7280',
@@ -249,6 +249,7 @@ export const theme = createTheme({
 		text: {
 			primary: '#2c2c2c',
 			secondary: '#65748B',
+			tertiary: WHITE_COLOR,
 			disabled: 'rgba(55, 65, 81, 0.48)',
 		},
 	},

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { DashboardNavbar } from './dashboard-navbar';
-import { DashboardSidebar } from './dashboard-sidebar';
 import { DRAWER_WIDTH } from 'src/static/styles';
-import useSwipe from './hooks/useSwipe';
+import useSwipe from '../hooks/useSwipe';
 import { DIRECTIONS } from 'src/static/constants';
+import DashboardNavbar from './navbar';
+import DashboardSidebar from './sidebar';
 
 const DashboardLayoutRoot = styled('div')(({ open }) => ({
 	display: 'flex',
@@ -54,3 +54,5 @@ export const DashboardLayout = (props) => {
 		</>
 	);
 };
+
+export default DashboardLayout;
