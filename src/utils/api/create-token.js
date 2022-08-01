@@ -17,7 +17,7 @@ const createToken = async () => {
 			// localStorage.setItem('access_token', responseJson.access_token);
 			return responseJson.access_token;
 		} else {
-			throw new Error(response);
+			throw new Error(JSON.stringify(response));
 		}
 	} catch (err) {
 		throw new Error(err);

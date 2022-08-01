@@ -35,7 +35,7 @@ const retrieveUserData = async ({ token, currentDate }) => {
 			const responseJson = await response.json();
 			return responseJson;
 		} else {
-			throw new Error(response);
+			throw new Error(JSON.stringify(response));
 		}
 	} catch (err) {
 		throw new Error(err);
