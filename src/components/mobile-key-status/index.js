@@ -1,14 +1,16 @@
+import { Description } from '@mui/icons-material';
 import {
 	Box,
 	Card,
 	CardContent,
 	CircularProgress,
 	Container,
+	Typography,
 } from '@mui/material';
 // useEffect,
 import { useState } from 'react';
 // ERROR_MESSAGES
-import { API_STATUS } from 'src/static/api';
+import { API_STATUS, ERROR_MESSAGES } from 'src/static/api';
 import { CENTER_STYLES } from 'src/static/styles';
 // import { formatDDMMMYYYY } from 'src/utils/date';
 // import { getUserData } from 'src/utils/mobile-key-status';
@@ -94,7 +96,12 @@ const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
 	}
 
 	if (loadingStatus === API_STATUS.done && mobileKeyStatus.length === 0) {
-		return <p>No Data</p>;
+		return (
+			<Box sx={CENTER_STYLES}>
+				<Description />
+				<Typography variant='body1'>{ERROR_MESSAGES.empty} </Typography>
+			</Box>
+		);
 	}
 
 	return (

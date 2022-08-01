@@ -21,4 +21,5 @@ export const API_STATUS = {
 
 export const ERROR_MESSAGES = {
 	500: 'Something Went Wrong Try Again Later',
+	empty: 'No Data Available',
 };

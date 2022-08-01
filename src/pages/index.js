@@ -5,6 +5,9 @@ import DashboardLayout from 'src/components/layout';
 import { formatDDMMMYYYY } from 'src/utils/date';
 import { API_STATUS, ERROR_MESSAGES } from 'src/static/api';
 import { getUserData } from 'src/utils/mobile-key-status';
+import mobile_key_status from 'src/__mocks__/mobile_key_status';
+import useNetwork from 'src/components/hooks/useNetwork';
+import NoInternet from 'src/components/no-internet-dialog';
 // import {
 // 	AuthenticatedTemplate,
 // 	UnauthenticatedTemplate,
@@ -12,6 +15,8 @@ import { getUserData } from 'src/utils/mobile-key-status';
 // import SignIn from 'src/components/signin';
 
 const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
+	const isOffline = useNetwork();
+
 	return (
 		<>
 			{/* <AuthenticatedTemplate> */}
@@ -37,6 +42,7 @@ const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
 			{/* <UnauthenticatedTemplate> */}
 			{/* <SignIn /> */}
 			{/* </UnauthenticatedTemplate> */}
+			<NoInternet isOffline={isOffline} />
 		</>
 	);
 };
@@ -51,11 +57,17 @@ export async function getServerSideProps() {
 	try {
 		const currentDate = formatDDMMMYYYY(new Date());
 		const response = await getUserData({ currentDate });
-		mobileKeyStatus = response;
+		if (response.length > 0) {
+			mobileKeyStatus = response;
+		} else {
+			mobileKeyStatus = mobile_key_status;
+		}
 		loadingStatus = API_STATUS.done;
 	} catch (err) {
-		loadingStatus = API_STATUS.failed;
-		errorMessage = err.message;
+		mobileKeyStatus = mobile_key_status;
+		loadingStatus = API_STATUS.done;
+		// loadingStatus = API_STATUS.failed;
+		// errorMessage = err.message;
 	}
 
 	return {
