@@ -1,18 +1,5 @@
 import { LogLevel } from '@azure/msal-browser';
 
-console.log(
-	process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID,
-	' NEXT_PUBLIC_AZURE_AD_CLIENT_ID '
-);
-console.log(
-	process.env.NEXT_PUBLIC_AZURE_AD_TENANT_ID,
-	' NEXT_PUBLIC_AZURE_AD_TENANT_ID '
-);
-console.log(
-	process.env.NEXT_PUBLIC_AZURE_REDIRECT_URI,
-	' NEXT_PUBLIC_AZURE_REDIRECT_URI '
-);
-
 export const msalConfig = {
 	auth: {
 		clientId: process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID,
