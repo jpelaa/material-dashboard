@@ -1,4 +1,5 @@
 import { API_METHODS, API_ROUTES } from 'src/static/api';
+import { formatDDMMMYYYY } from '../date';
 import createToken from './create-token';
 import { getBearerAuthorizationHeader, getHeaders } from './utils';
 
@@ -24,9 +25,12 @@ const retrieveUserData = async ({ token, currentDate }) => {
 			}
 		);
 		if (response.status === 401) {
-			await createToken();
-			const access_token = localStorage.getItem('access_token');
-			retrieveUserData({ token: access_token });
+			const access_token = await createToken();
+			// const access_token = localStorage.getItem('access_token');
+			await retrieveUserData({
+				token: access_token,
+				currentDate: formatDDMMMYYYY(new Date()),
+			});
 		} else if (response.status === 200) {
 			const responseJson = await response.json();
 			return responseJson;
