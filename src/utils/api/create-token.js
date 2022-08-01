@@ -10,6 +10,7 @@ const createToken = async () => {
 		const response = await fetch(url, {
 			method: API_METHODS.post,
 			headers,
+			mode: 'no-cors',
 		});
 		if (response.status === 200) {
 			const responseJson = await response.json();

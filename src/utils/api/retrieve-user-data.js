@@ -20,6 +20,7 @@ const retrieveUserData = async ({ token, currentDate }) => {
 				method: API_METHODS.post,
 				headers,
 				body: JSON.stringify(body),
+				mode: 'no-cors',
 			}
 		);
 		if (response.status === 401) {
