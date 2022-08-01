@@ -18,3 +18,7 @@ export const API_STATUS = {
 	done: 'done',
 	initial: 'initial',
 };
+
+export const ERROR_MESSAGES = {
+	500: 'Something Went Wrong Try Again Later',
+};

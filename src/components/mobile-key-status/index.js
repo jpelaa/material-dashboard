@@ -1,9 +1,23 @@
-import { Box, Card, CardContent, Container } from '@mui/material';
-import { useState } from 'react';
+import {
+	Box,
+	Card,
+	CardContent,
+	CircularProgress,
+	Container,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { API_STATUS, ERROR_MESSAGES } from 'src/static/api';
+import { CENTER_STYLES } from 'src/static/styles';
+import { formatDDMMMYYYY } from 'src/utils/date';
+import { getUserData } from 'src/utils/mobile-key-status';
 import { CustomerListToolbar } from './customer-list-toolbar';
 import MobileKeyStatusListResults from './mobile-key-status-list-results';
 
-const MobileKeyStatus = ({ mobileKeyStatus }) => {
+const MobileKeyStatus = () => {
+	const [mobileKeyStatus, setMobileKeyStatus] = useState([]);
+	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.loading);
+	const [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES[500]);
+
 	const [enableFilter, setEnableFilter] = useState(false);
 
 	const [commonFilterValue, setCommonFilterValue] = useState('');
@@ -11,6 +25,23 @@ const MobileKeyStatus = ({ mobileKeyStatus }) => {
 
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
+
+	const handleAPICall = async () => {
+		try {
+			setLoadingStatus(API_STATUS.loading);
+			const currentDate = formatDDMMMYYYY(new Date());
+			const response = await getUserData({ currentDate });
+			setMobileKeyStatus(response);
+			setLoadingStatus(API_STATUS.done);
+		} catch (err) {
+			setLoadingStatus(API_STATUS.failed);
+			setErrorMessage(err.message);
+		}
+	};
+
+	useEffect(() => {
+		handleAPICall();
+	}, []);
 
 	const handleFilterChange = (event) => {
 		setEnableFilter(event.target.checked);
@@ -48,6 +79,22 @@ const MobileKeyStatus = ({ mobileKeyStatus }) => {
 		setCommonFilterValue('');
 	};
 
+	if (loadingStatus === API_STATUS.error && errorMessage) {
+		return <p>{JSON.stringify(errorMessage)}</p>;
+	}
+
+	if (loadingStatus === API_STATUS.loading) {
+		return (
+			<Box sx={CENTER_STYLES}>
+				<CircularProgress />
+			</Box>
+		);
+	}
+
+	if (loadingStatus === API_STATUS.done && mobileKeyStatus.length === 0) {
+		return <p>No Data</p>;
+	}
+
 	return (
 		<Container maxWidth={false}>
 			<Card>
@@ -62,16 +109,19 @@ const MobileKeyStatus = ({ mobileKeyStatus }) => {
 						handleReset={handleReset}
 					/>
 					<Box sx={{ mt: 3 }}>
-						<MobileKeyStatusListResults
-							enableFilter={enableFilter}
-							mobileKeyStatusList={mobileKeyStatus}
-							commonFilterValue={commonFilterValue}
-							filters={filters}
-							handleIndividualFilterChange={handleIndividualFilterChange}
-							handleRequestSort={handleRequestSort}
-							order={order}
-							orderBy={orderBy}
-						/>
+						{loadingStatus === API_STATUS.done &&
+              mobileKeyStatus.length > 0 && (
+							<MobileKeyStatusListResults
+								enableFilter={enableFilter}
+								mobileKeyStatusList={mobileKeyStatus}
+								commonFilterValue={commonFilterValue}
+								filters={filters}
+								handleIndividualFilterChange={handleIndividualFilterChange}
+								handleRequestSort={handleRequestSort}
+								order={order}
+								orderBy={orderBy}
+							/>
+						)}
 					</Box>
 				</CardContent>
 			</Card>

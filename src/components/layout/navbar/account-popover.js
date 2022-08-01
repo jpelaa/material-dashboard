@@ -11,9 +11,11 @@ import {
 } from '@mui/material';
 // components
 import MenuPopover from './menu-popover';
+import { useMsal } from '@azure/msal-react';
 
 export default function AccountPopover() {
 	const anchorRef = useRef(null);
+	const { instance } = useMsal();
 
 	const [open, setOpen] = useState(null);
 
@@ -71,7 +73,14 @@ export default function AccountPopover() {
 				</Box>
 
 				<Divider sx={{ borderStyle: 'dashed' }} />
-				<MenuItem onClick={() => {}} to='/api/auth/signout' sx={{ m: 1 }}>
+				<MenuItem
+					onClick={() => {
+						instance.logoutRedirect({
+							postLogoutRedirectUri: 'http://localhost:3000/',
+						});
+					}}
+					sx={{ m: 1 }}
+				>
           Logout
 				</MenuItem>
 			</MenuPopover>

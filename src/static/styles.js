@@ -21,7 +21,7 @@ export const PALETTE_COLOR_TYPES = {
 
 export const CENTER_STYLES = {
 	display: 'flex',
-	justifyContent: 'space-between',
+	justifyContent: 'center',
 	alignItems: 'center',
 };
 

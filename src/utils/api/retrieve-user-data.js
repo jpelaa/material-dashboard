@@ -1,30 +1,27 @@
 import { API_METHODS, API_ROUTES } from 'src/static/api';
-import { formatDDMMMYYYY } from '../date';
 import createToken from './create-token';
 import { getBearerAuthorizationHeader, getHeaders } from './utils';
 
-const getBody = () => {
-	const date = new Date();
+const getBody = ({ currentDate }) => {
 	return {
-		currentDate: formatDDMMMYYYY(date),
+		currentDate,
 	};
 };
 
-const retrieveUserData = async ({ token }) => {
+const retrieveUserData = async ({ token, currentDate }) => {
 	try {
-		const body = getBody();
+		const body = getBody({ currentDate });
 		const partialHeaders = getHeaders();
 		const authorizationHeader = getBearerAuthorizationHeader(token);
 		const headers = { ...partialHeaders, ...authorizationHeader };
 		const response = await fetch(
-			`${process.env.API_URL}${API_ROUTES.retrieveUserData}`,
+			`${process.env.NEXT_PUBLIC_API_URL}${API_ROUTES.retrieveUserData}`,
 			{
 				method: API_METHODS.post,
 				headers,
 				body: JSON.stringify(body),
 			}
 		);
-		console.log(response, ' response retried User data ');
 		if (response.status === 401) {
 			await createToken();
 			const access_token = localStorage.getItem('access_token');

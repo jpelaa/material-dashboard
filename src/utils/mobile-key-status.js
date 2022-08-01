@@ -2,6 +2,23 @@ import { MOBILE_KEY_STATUS_BY_ID } from 'src/static/mobile-key-status';
 import { formatYYYYMMDD } from './date';
 import { OVERALL_STATUS } from 'src/static/mobile-key-status';
 import { PALETTE_TYPES } from 'src/static/styles';
+import createToken from './api/create-token';
+import retrieveUserData from './api/retrieve-user-data';
+
+export const getUserData = async ({ currentDate }) => {
+	let token;
+	const access_token = localStorage.getItem('access_token');
+	if (access_token) {
+		token = access_token;
+	} else {
+		await createToken();
+		token = localStorage.getItem('access_token');
+	}
+	const response = await retrieveUserData({ token, currentDate });
+	if (response.UserDetailsList && response.UserDetailsList.length > 0) {
+		return response.UserDetailsList;
+	}
+};
 
 const getColorBasedOnStatus = (overAllStatus) => {
 	const overAllStatusLowerCased = overAllStatus.toLowerCase();
