@@ -7,3 +7,6 @@ export function debounce(func, timeout = 100) {
 		}, timeout);
 	};
 }
+
+export const getFirstLetterCapitalizedRestInLowerCase = (text) =>
+	text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();

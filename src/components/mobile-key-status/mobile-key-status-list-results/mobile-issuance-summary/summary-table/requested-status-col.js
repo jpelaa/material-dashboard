@@ -17,6 +17,7 @@ import {
 	TRANSITION_LIST_BY_KEY,
 } from 'src/static/mobile-key-status';
 import { FONT_FAMILIES } from 'src/static/styles';
+import { getFirstLetterCapitalizedRestInLowerCase } from 'src/utils/helper';
 
 const checkBoxDesign = ({ selectedStatus, currentStatus }) => ({
 	display: 'flex',
@@ -38,7 +39,7 @@ const checkBoxDesign = ({ selectedStatus, currentStatus }) => ({
 		: {}),
 });
 
-const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
+const RequestedStatusCol = ({ id, status, row, handleSubmitStatus }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [display, setDisplay] = useState(false);
 
@@ -72,10 +73,12 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 
 	const statusInLowerCase = status.toLowerCase();
 
+	const statusText = getFirstLetterCapitalizedRestInLowerCase(status);
+
 	return (
 		<>
 			<Typography variant='body2' sx={{ fontFamily: FONT_FAMILIES.gilroy }}>
-				{status}
+				{statusText}
 				<Link
 					sx={{
 						cursor: 'pointer',
@@ -118,7 +121,7 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 										backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[statusInLowerCase]}.light`,
 									}}
 								>
-									{status}
+									{statusText}
 								</Typography>
 							</Box>
 						</CardContent>
@@ -162,7 +165,9 @@ const RequestedStatusCol = ({ id, status, handleSubmitStatus }) => {
 						</Button>
 						<Button
 							sx={{ width: '50%' }}
-							onClick={() => handleSubmitStatus({ status: selectedStatus, id })}
+							onClick={() =>
+								handleSubmitStatus({ status: selectedStatus, id, row })
+							}
 							variant='contained'
 						>
               Done

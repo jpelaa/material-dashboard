@@ -1,6 +1,10 @@
+const SUB_ROUTE_URL = '/pushnotification/1.0/push-notification';
+
 export const API_ROUTES = {
 	token: '/authentication/token',
-	retrieveUserData: '/pushnotification/1.0/push-notification/retrive-userData',
+	retrieveUserData: `${SUB_ROUTE_URL}/retrive-userData`,
+	sendEmail: `${SUB_ROUTE_URL}/sendEmail/secondaryKey`,
+	revokeKey: '/hotels/keys/v1/assa-abloy-revoke-key',
 };
 
 export const API_METHODS = {

@@ -10,23 +10,20 @@ import {
 	TextareaAutosize,
 } from '@mui/material';
 import { formatYYYYMMDDWith12hoursAMPM } from 'src/utils/date';
-import { updateStatusById } from 'src/utils/api/summary';
 import { API_STATUS } from 'src/static/api';
 import AssignStatus from './assign-status';
 import RequestedStatusCol from './requested-status-col';
 import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from 'src/static/mobile-key-status';
+import { updateStatus } from 'src/utils/issuance-summary';
 
 const SummaryTable = ({ rows = [] }) => {
 	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.initial);
 
-	const handleSubmitStatus = async ({ status, id }) => {
+	const handleSubmitStatus = async ({ status, id, row }) => {
 		try {
-			const req = {
-				status,
-				id,
-			};
 			setLoadingStatus(API_STATUS.loading);
-			await updateStatusById(req);
+			await updateStatus({ status, id, row });
+
 			setLoadingStatus(API_STATUS.done);
 		} catch (err) {
 			setLoadingStatus(API_STATUS.failed);
@@ -93,6 +90,7 @@ const SummaryTable = ({ rows = [] }) => {
 										<RequestedStatusCol
 											status={row.approvalStatus}
 											id={row.emailId}
+											row={row}
 											handleSubmitStatus={handleSubmitStatus}
 										/>
 									)}

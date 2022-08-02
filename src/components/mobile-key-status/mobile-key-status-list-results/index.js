@@ -57,7 +57,7 @@ const MobileKeyStatusListResults = ({
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Paper elevation={12}>
-				<TableContainer component={Paper}>
+				<TableContainer component={Paper} id='mobile-key-status-list'>
 					<Table
 						sx={{ minWidth: 1080 }}
 						aria-labelledby='tableTitle'

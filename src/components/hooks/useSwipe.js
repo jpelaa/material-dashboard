@@ -7,10 +7,12 @@ function useSwipe(handler) {
 		const processChange = debounce((event) => listener(event));
 		const listener = (event) => {
 			event.preventDefault();
-			if (event.deltaY === 0) {
-				const swipeDirection =
-          event.deltaX > 0 ? DIRECTIONS.left : DIRECTIONS.right;
-				handler(swipeDirection);
+			if (!event.target.classList.contains('MuiTableCell-root')) {
+				if (event.deltaY === 0) {
+					const swipeDirection =
+            event.deltaX > 0 ? DIRECTIONS.left : DIRECTIONS.right;
+					handler(swipeDirection);
+				}
 			}
 		};
 		document.addEventListener('mousewheel', processChange);

@@ -111,10 +111,16 @@ export const OVERALL_STATUS = {
 	complete: 'complete',
 };
 
+export const GUEST_TYPES = {
+	primary: 'PRIMARY',
+	secondary: 'SECONDARY',
+};
+
 export const REQUESTED_STATUS_TYPES = {
 	approved: 'approved',
 	rejected: 'rejected',
 	revoked: 'revoked',
+	approvalPending: 'approval_pending',
 };
 
 export const STATUS_TEXT = {
