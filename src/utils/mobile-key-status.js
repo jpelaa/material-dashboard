@@ -7,13 +7,14 @@ import retrieveUserData from './api/retrieve-user-data';
 
 export const getUserData = async ({ currentDate }) => {
 	let token;
-	// const access_token = localStorage.getItem('access_token');
-	// if (access_token) {
-	// 	token = access_token;
-	// } else {
-	token = await createToken();
-	// 	token = localStorage.getItem('access_token');
-	// }
+	const access_token = localStorage.getItem('access_token');
+	if (access_token) {
+		token = access_token;
+	} else {
+		// token =
+		await createToken();
+		token = localStorage.getItem('access_token');
+	}
 	const response = await retrieveUserData({ token, currentDate });
 	if (response.UserDetailsList && response.UserDetailsList.length > 0) {
 		return response.UserDetailsList;

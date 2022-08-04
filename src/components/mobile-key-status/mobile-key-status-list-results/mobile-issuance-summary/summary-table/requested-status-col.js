@@ -50,7 +50,7 @@ const RequestedStatusCol = ({ id, status, row, handleSubmitStatus }) => {
 	const theme = useTheme();
 
 	const handleOpen = (event) => {
-		setTransitionList(TRANSITION_LIST_BY_KEY[status.toLowerCase()]);
+		setTransitionList(TRANSITION_LIST_BY_KEY[status]);
 		setAnchorEl(event.currentTarget);
 	};
 
@@ -70,8 +70,6 @@ const RequestedStatusCol = ({ id, status, row, handleSubmitStatus }) => {
 		setAnchorEl(null);
 		setSelectedStatus('');
 	};
-
-	const statusInLowerCase = status.toLowerCase();
 
 	const statusText = getFirstLetterCapitalizedRestInLowerCase(status);
 
@@ -117,8 +115,8 @@ const RequestedStatusCol = ({ id, status, row, handleSubmitStatus }) => {
 										width: '50%',
 										px: 0.75,
 										py: 0.5,
-										color: `${REQUESTED_STATUS_COLORS_BY_KEY[statusInLowerCase]}.main`,
-										backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[statusInLowerCase]}.light`,
+										color: `${REQUESTED_STATUS_COLORS_BY_KEY[status]}.main`,
+										backgroundColor: `${REQUESTED_STATUS_COLORS_BY_KEY[status]}.light`,
 									}}
 								>
 									{statusText}

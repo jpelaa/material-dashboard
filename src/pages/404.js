@@ -32,18 +32,6 @@ const NotFound = () => (
             You either tried some shady route or you came here by mistake.
             Whichever it is, try using the navigation
 					</Typography>
-					<Box sx={{ textAlign: 'center' }}>
-						<img
-							alt='Under development'
-							src='/static/images/not_found.svg'
-							style={{
-								marginTop: 50,
-								display: 'inline-block',
-								maxWidth: '100%',
-								width: 560,
-							}}
-						/>
-					</Box>
 					<NextLink href='/' passHref>
 						<Button
 							component='a'

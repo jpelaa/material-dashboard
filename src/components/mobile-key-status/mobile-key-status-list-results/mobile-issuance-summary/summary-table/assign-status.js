@@ -1,7 +1,11 @@
 import { Button, Stack } from '@mui/material';
 import { REQUESTED_STATUS_TYPES } from 'src/static/mobile-key-status';
 
-const AssignStatus = ({ handleSubmitStatus, id }) => {
+const AssignStatus = ({ handleSubmitStatus, id, row, summaryIndex }) => {
+	const handleClick = (status) => {
+		handleSubmitStatus({ status, id, row, summaryIndex });
+	};
+
 	return (
 		<Stack
 			direction='row'
@@ -11,9 +15,7 @@ const AssignStatus = ({ handleSubmitStatus, id }) => {
 		>
 			<Button
 				variant='contained'
-				onClick={() =>
-					handleSubmitStatus({ status: REQUESTED_STATUS_TYPES.approved, id })
-				}
+				onClick={() => handleClick(REQUESTED_STATUS_TYPES.approved)}
 				color='success'
 				size='small'
 			>
@@ -21,9 +23,7 @@ const AssignStatus = ({ handleSubmitStatus, id }) => {
 			</Button>
 			<Button
 				variant='contained'
-				onClick={() =>
-					handleSubmitStatus({ status: REQUESTED_STATUS_TYPES.approved, id })
-				}
+				onClick={() => handleClick(REQUESTED_STATUS_TYPES.rejected)}
 				color='error'
 				size='small'
 			>

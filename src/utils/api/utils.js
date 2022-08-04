@@ -18,3 +18,9 @@ export const getBearerAuthorizationHeader = (token) => {
 		Authorization: `Bearer ${token}`,
 	};
 };
+
+export const getTokenHeader = (token) => {
+	return {
+		Token: token,
+	};
+};

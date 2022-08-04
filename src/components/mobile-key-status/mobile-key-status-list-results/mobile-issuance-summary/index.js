@@ -17,6 +17,7 @@ const MobileIssuanceSummary = ({
 	open,
 	handleClose,
 	scroll = 'paper',
+	handleStatusChange,
 }) => {
 	return (
 		<Dialog
@@ -44,7 +45,11 @@ const MobileIssuanceSummary = ({
 			</AppBar>
 			<DialogContent dividers={scroll === 'paper'}>
 				<MobileKeyDetails details={details} />
-				<SummaryTable rows={userDetails} />
+				<SummaryTable
+					mobileKeyStatusIndex={details.mobileKeyStatusIndex}
+					rows={userDetails}
+					handleStatusChange={handleStatusChange}
+				/>
 			</DialogContent>
 		</Dialog>
 	);

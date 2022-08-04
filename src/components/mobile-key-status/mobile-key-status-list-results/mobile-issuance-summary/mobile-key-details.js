@@ -76,7 +76,7 @@ const MobileKeyDetails = ({ details }) => {
 					<Content>{details.noOfNights}</Content>
 				</Grid>
 				<Grid item xs>
-					<Content>{`${details.salutation}.${details.firstName} ${details.lastName}`}</Content>
+					<Content>{details.guestName}</Content>
 				</Grid>
 			</Grid>
 		</Box>

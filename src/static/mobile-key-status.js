@@ -29,11 +29,6 @@ export const MOBILE_KEY_STATUS_TABLE_HEADER = [
 		filterEnabled: true,
 	},
 	{
-		id: 'checkInChannel',
-		label: 'Check-in Channel',
-		filterEnabled: true,
-	},
-	{
 		id: 'roomNumber',
 		label: 'Room Number',
 		filterEnabled: true,
@@ -117,10 +112,10 @@ export const GUEST_TYPES = {
 };
 
 export const REQUESTED_STATUS_TYPES = {
-	approved: 'approved',
-	rejected: 'rejected',
-	revoked: 'revoked',
-	approvalPending: 'approval_pending',
+	approved: 'APPROVED',
+	rejected: 'REJECTED',
+	revoked: 'REVOKED',
+	approvalPending: 'APPROVAL_PENDING',
 };
 
 export const STATUS_TEXT = {

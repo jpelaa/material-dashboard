@@ -21,12 +21,12 @@ const retrieveUserData = async ({ token, currentDate }) => {
 				method: API_METHODS.post,
 				headers,
 				body: JSON.stringify(body),
-				mode: 'no-cors',
 			}
 		);
 		if (response.status === 401) {
-			const access_token = await createToken();
-			// const access_token = localStorage.getItem('access_token');
+			// const access_token =
+			await createToken();
+			const access_token = localStorage.getItem('access_token');
 			await retrieveUserData({
 				token: access_token,
 				currentDate: formatDDMMMYYYY(new Date()),

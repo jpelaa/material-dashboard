@@ -8,20 +8,23 @@ import {
 	Typography,
 } from '@mui/material';
 // useEffect,
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // ERROR_MESSAGES
 import { API_STATUS, ERROR_MESSAGES } from 'src/static/api';
 import { CENTER_STYLES } from 'src/static/styles';
+import { formatDDMMMYYYY } from 'src/utils/date';
+import { getUserData } from 'src/utils/mobile-key-status';
 // import { formatDDMMMYYYY } from 'src/utils/date';
 // import { getUserData } from 'src/utils/mobile-key-status';
 import { CustomerListToolbar } from './customer-list-toolbar';
 import MobileKeyStatusListResults from './mobile-key-status-list-results';
+// { mobileKeyStatus, loadingStatus, errorMessage }
+const MobileKeyStatus = () => {
+	const [mobileKeyStatus, setMobileKeyStatus] = useState([]);
+	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.loading);
+	const [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES[500]);
 
-const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
-	// const [mobileKeyStatus, setMobileKeyStatus] = useState([]);
-	// const [loadingStatus, setLoadingStatus] = useState(API_STATUS.loading);
-	// const [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES[500]);
-
+	// const [mobileKeyStatusList, setMobileKeyStatusList] = useState([]);
 	const [enableFilter, setEnableFilter] = useState(false);
 
 	const [commonFilterValue, setCommonFilterValue] = useState('');
@@ -30,22 +33,26 @@ const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
 
-	// const handleAPICall = async () => {
-	// 	try {
-	// 		setLoadingStatus(API_STATUS.loading);
-	// 		const currentDate = formatDDMMMYYYY(new Date());
-	// 		const response = await getUserData({ currentDate });
-	// 		setMobileKeyStatus(response);
-	// 		setLoadingStatus(API_STATUS.done);
-	// 	} catch (err) {
-	// 		setLoadingStatus(API_STATUS.failed);
-	// 		setErrorMessage(err.message);
-	// 	}
-	// };
-
 	// useEffect(() => {
-	// 	handleAPICall();
+	// 	setMobileKeyStatusList(mobileKeyStatus);
 	// }, []);
+
+	const handleAPICall = async () => {
+		try {
+			setLoadingStatus(API_STATUS.loading);
+			const currentDate = formatDDMMMYYYY(new Date());
+			const response = await getUserData({ currentDate });
+			setMobileKeyStatus(response);
+			setLoadingStatus(API_STATUS.done);
+		} catch (err) {
+			setLoadingStatus(API_STATUS.failed);
+			setErrorMessage(err.message);
+		}
+	};
+
+	useEffect(() => {
+		handleAPICall();
+	}, []);
 
 	const handleFilterChange = (event) => {
 		setEnableFilter(event.target.checked);
@@ -81,6 +88,27 @@ const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
 		setOrderBy('');
 		setFilters({});
 		setCommonFilterValue('');
+	};
+
+	const handleStatusChange = ({
+		mobileKeyStatusIndex,
+		summaryIndex,
+		status,
+	}) => {
+		console.log(
+			{ mobileKeyStatusIndex, summaryIndex, status },
+			' handleStatusChange '
+		);
+		const mobileStatusListCopy = JSON.parse(JSON.stringify(mobileKeyStatus));
+		mobileStatusListCopy[mobileKeyStatusIndex].userDetails[
+			summaryIndex
+		].approvalStatus = status;
+		console.log(
+			mobileStatusListCopy[mobileKeyStatusIndex].userDetails[summaryIndex]
+				.approvalStatus,
+			' approvalStatus'
+		);
+		setMobileKeyStatus(mobileStatusListCopy);
 	};
 
 	if (loadingStatus === API_STATUS.failed && errorMessage) {
@@ -129,6 +157,7 @@ const MobileKeyStatus = ({ mobileKeyStatus, loadingStatus, errorMessage }) => {
 								handleRequestSort={handleRequestSort}
 								order={order}
 								orderBy={orderBy}
+								handleStatusChange={handleStatusChange}
 							/>
 						)}
 					</Box>

@@ -13,17 +13,26 @@ import { formatYYYYMMDDWith12hoursAMPM } from 'src/utils/date';
 import { API_STATUS } from 'src/static/api';
 import AssignStatus from './assign-status';
 import RequestedStatusCol from './requested-status-col';
-import { MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER } from 'src/static/mobile-key-status';
+import {
+	MOBILE_KEY_ISSUANCE_SUMMARY_TABLE_HEADER,
+	REQUESTED_STATUS_TYPES,
+} from 'src/static/mobile-key-status';
 import { updateStatus } from 'src/utils/issuance-summary';
 
-const SummaryTable = ({ rows = [] }) => {
+const SummaryTable = ({
+	rows = [],
+	mobileKeyStatusIndex,
+	handleStatusChange,
+}) => {
 	const [loadingStatus, setLoadingStatus] = useState(API_STATUS.initial);
 
-	const handleSubmitStatus = async ({ status, id, row }) => {
+	const handleSubmitStatus = async ({ status, id, row, summaryIndex }) => {
 		try {
 			setLoadingStatus(API_STATUS.loading);
-			await updateStatus({ status, id, row });
-
+			console.log({ status, id, row, summaryIndex }, '  handleSubmitStatus ');
+			await updateStatus({ status, id, row, rows });
+			console.log({ status, id, row, summaryIndex }, ' submitStatus ');
+			handleStatusChange({ mobileKeyStatusIndex, summaryIndex, status });
 			setLoadingStatus(API_STATUS.done);
 		} catch (err) {
 			setLoadingStatus(API_STATUS.failed);
@@ -34,7 +43,7 @@ const SummaryTable = ({ rows = [] }) => {
 		return 'loading...';
 	}
 	return (
-		<Paper elevation={12} variant='outlined'>
+		<Paper elevation={12}>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 					<TableHead>
@@ -81,19 +90,23 @@ const SummaryTable = ({ rows = [] }) => {
 										width: '12%',
 									}}
 								>
-									{!row.approvalStatus ? (
-										<AssignStatus
-											id={row.emailId}
-											handleSubmitStatus={handleSubmitStatus}
-										/>
-									) : (
-										<RequestedStatusCol
-											status={row.approvalStatus}
-											id={row.emailId}
-											row={row}
-											handleSubmitStatus={handleSubmitStatus}
-										/>
-									)}
+									{row.approvalStatus ===
+                  REQUESTED_STATUS_TYPES.approvalPending ? (
+											<AssignStatus
+												id={row.emailId}
+												row={row}
+												summaryIndex={index}
+												handleSubmitStatus={handleSubmitStatus}
+											/>
+										) : (
+											<RequestedStatusCol
+												status={row.approvalStatus}
+												id={row.emailId}
+												row={row}
+												summaryIndex={index}
+												handleSubmitStatus={handleSubmitStatus}
+											/>
+										)}
 								</TableCell>
 								<TableCell
 									sx={{

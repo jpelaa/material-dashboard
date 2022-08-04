@@ -1,6 +1,6 @@
 import { API_METHODS, API_ROUTES } from 'src/static/api';
 import createToken from './create-token';
-import { getBearerAuthorizationHeader, getHeaders } from './utils';
+import { getHeaders, getTokenHeader } from './utils';
 
 const getBody = (requestBody) => {
 	return requestBody;
@@ -10,15 +10,19 @@ const sendEmail = async ({ token, requestBody }) => {
 	try {
 		const body = getBody(requestBody);
 		const partialHeaders = getHeaders();
-		const authorizationHeader = getBearerAuthorizationHeader(token);
-		const headers = { ...partialHeaders, ...authorizationHeader };
+		const tokenHeader = getTokenHeader(token);
+		const headers = { ...partialHeaders, ...tokenHeader };
+		console.log({ headers, body }, ' sendEmail ');
+		// const response = {
+		// 	status: 200,
+		// 	json: () => new Promise((resolve) => resolve([]))
+		// };
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_URL}${API_ROUTES.sendEmail}`,
 			{
 				method: API_METHODS.post,
 				headers,
 				body: JSON.stringify(body),
-				mode: 'no-cors',
 			}
 		);
 		if (response.status === 401) {

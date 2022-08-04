@@ -5,6 +5,7 @@ export const API_ROUTES = {
 	retrieveUserData: `${SUB_ROUTE_URL}/retrive-userData`,
 	sendEmail: `${SUB_ROUTE_URL}/sendEmail/secondaryKey`,
 	revokeKey: '/hotels/keys/v1/assa-abloy-revoke-key',
+	oAuthToken: '/jumeirah/oauth/v1/token',
 };
 
 export const API_METHODS = {

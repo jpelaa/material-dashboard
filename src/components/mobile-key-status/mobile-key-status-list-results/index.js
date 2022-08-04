@@ -32,6 +32,7 @@ const MobileKeyStatusListResults = ({
 	enableFilter,
 	handleIndividualFilterChange,
 	handleRequestSort,
+	handleStatusChange,
 }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -80,12 +81,12 @@ const MobileKeyStatusListResults = ({
 								getComparator(order, orderBy)
 							)
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((data) => (
+								.map((data, index) => (
 									<TableRow hover key={data.bookingId}>
 										<TableCell
-											align='left'
+											// align='left'
 											sx={{
-												width: '8%',
+												width: '11%',
 												minWidth: '110px',
 											}}
 										>
@@ -95,7 +96,7 @@ const MobileKeyStatusListResults = ({
 											/>
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '9%',
 												minWidth: '110px',
@@ -104,7 +105,7 @@ const MobileKeyStatusListResults = ({
 											{data.bookingId}
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '9%',
 												minWidth: '110px',
@@ -112,7 +113,7 @@ const MobileKeyStatusListResults = ({
 										>
 											{data.reservationId}
 										</TableCell>
-										<TableCell
+										{/* <TableCell
 											align='center'
 											sx={{
 												width: '11%',
@@ -120,27 +121,28 @@ const MobileKeyStatusListResults = ({
 											}}
 										>
 											{data.checkInChannel}
-										</TableCell>
+										</TableCell> */}
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '10%',
 												minWidth: '110px',
+												paddingLeft: 3,
 											}}
 										>
 											{data.roomNumber}
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
-												width: '12%',
+												width: '20%',
 												minWidth: '110px',
 											}}
 										>
 											{data.guestName}
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '12%',
 												minWidth: '110px',
@@ -149,7 +151,7 @@ const MobileKeyStatusListResults = ({
 											{formatYYYYMMDD(data.checkInDate)}
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '12%',
 												minWidth: '110px',
@@ -175,7 +177,7 @@ const MobileKeyStatusListResults = ({
 											{`${data.mobileKeyIssued}/${data.mobileKeyRequested}`}
 										</TableCell>
 										<TableCell
-											align='center'
+											// align='center'
 											sx={{
 												width: '5%',
 											}}
@@ -191,7 +193,7 @@ const MobileKeyStatusListResults = ({
 													fontSize: '0.7rem',
 												}}
 												onClick={() => {
-													setDetails(data);
+													setDetails({ ...data, mobileKeyStatusIndex: index });
 													setShowPopup(true);
 												}}
 											>
@@ -223,6 +225,11 @@ const MobileKeyStatusListResults = ({
 						setDetails(null);
 					}}
 					userDetails={details.userDetails}
+					handleStatusChange={(data) => {
+						handleStatusChange(data);
+						setShowPopup(false);
+						setDetails(null);
+					}}
 				/>
 			)}
 		</Box>

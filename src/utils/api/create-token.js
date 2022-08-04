@@ -7,11 +7,12 @@ const createToken = async () => {
 		const partialHeaders = getHeaders();
 		const authorizationHeader = getBasicAuthorizationHeader();
 		const headers = { ...partialHeaders, ...authorizationHeader };
+		console.log({ headers }, ' request createToken ');
 		const response = await fetch(url, {
 			method: API_METHODS.post,
 			headers,
-			mode: 'no-cors',
 		});
+		console.log(response, '  response createToken ');
 		if (response.status === 200) {
 			const responseJson = await response.json();
 			// localStorage.setItem('access_token', responseJson.access_token);
