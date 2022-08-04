@@ -3,12 +3,4 @@ module.exports = {
 		loader: 'akamai',
 		path: '',
 	},
-	async rewrites() {
-		return [
-			{
-				source: '/api/:path*',
-				destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
-			},
-		];
-	},
 };

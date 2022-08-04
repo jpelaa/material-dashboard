@@ -1,9 +1,9 @@
-const API_URL = `${process.env.NEXT_PUBLIC_SERVER}/api`;
-const SUB_ROUTE_URL = 'pushnotification/1.0/push-notification';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
+const SUB_ROUTE_URL = '/pushnotification/1.0/push-notification';
 
 export const API_ROUTES = {
 	token: `${API_URL}/authentication/token`,
-	retrieveUserData: `${SUB_ROUTE_URL}/retrive-userData`,
+	retrieveUserData: `${API_URL}${SUB_ROUTE_URL}/retrive-userData`,
 	sendEmail: `${SUB_ROUTE_URL}/sendEmail/secondaryKey`,
 	revokeKey: '/hotels/keys/v1/assa-abloy-revoke-key',
 	oAuthToken: '/jumeirah/oauth/v1/token',

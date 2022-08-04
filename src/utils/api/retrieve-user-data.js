@@ -15,14 +15,11 @@ const retrieveUserData = async ({ token, currentDate }) => {
 		const partialHeaders = getHeaders();
 		const authorizationHeader = getBearerAuthorizationHeader(token);
 		const headers = { ...partialHeaders, ...authorizationHeader };
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}${API_ROUTES.retrieveUserData}`,
-			{
-				method: API_METHODS.post,
-				headers,
-				body: JSON.stringify(body),
-			}
-		);
+		const response = await fetch(API_ROUTES.retrieveUserData, {
+			method: API_METHODS.post,
+			headers,
+			body: JSON.stringify(body),
+		});
 		if (response.status === 401) {
 			// const access_token =
 			await createToken();

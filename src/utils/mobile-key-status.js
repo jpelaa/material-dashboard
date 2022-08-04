@@ -15,6 +15,7 @@ export const getUserData = async ({ currentDate }) => {
 		await createToken();
 		token = localStorage.getItem('access_token');
 	}
+	console.log(token, '  token ');
 	const response = await retrieveUserData({ token, currentDate });
 	if (response.UserDetailsList && response.UserDetailsList.length > 0) {
 		return response.UserDetailsList;
