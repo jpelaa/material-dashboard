@@ -3,7 +3,7 @@ import { getBasicAuthorizationHeader, getHeaders } from './utils';
 
 const createToken = async () => {
 	try {
-		const url = `${process.env.NEXT_PUBLIC_API_URL}${API_ROUTES.token}?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&grant_type=${process.env.NEXT_PUBLIC_GRANT_TYPE}`;
+		const url = `${API_ROUTES.token}?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&grant_type=${process.env.NEXT_PUBLIC_GRANT_TYPE}`;
 		const partialHeaders = getHeaders();
 		const authorizationHeader = getBasicAuthorizationHeader();
 		const headers = { ...partialHeaders, ...authorizationHeader };
